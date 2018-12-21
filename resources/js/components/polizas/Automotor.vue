@@ -1,0 +1,84 @@
+    <template>
+    <div>
+        <div class="page-header no-margin-bottom">
+          <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Polizas</h2>
+          </div>
+        </div>
+            <section class="no-padding-top">
+
+                    <div class="container-fluid">
+                        <div class="block">
+                        <router-link to="/polizas/create" class="btn btn-primary ladda-button float-right" >Crear</router-link>
+                        <div class="title"><strong>Automotor</strong></div>
+                            <div class="table-responsive">
+                            <table id="datatable1" style="width: 100%;" class="table">
+                                        <thead>
+                                                <tr style="font-size:80%;" role="row">
+                                                    <th>Poliza Nro</th>
+                                                    <th>Patente</th>
+                                                    <th>Compañia</th>
+                                                    <th>Cliente</th>
+                                                    <th>Vigencia</th>
+                                                    <th>Desde / Hasta</th>
+                                                    <th>Estado</th>
+                                                    <th>Envio</th>
+                                                    <th>F. Pago</th>
+                                                    <th>Edicion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr style="font-size:80%;"  v-for="poliza in polizas" :key="poliza.id" role="row" class="odd">
+                                                    <td> {{poliza.numero}} </td>
+                                                    <td> petente </td>
+                                                    <td> {{poliza.companias.nombre}} ({{poliza.codigo_productor.codigo_productor}}) </td>
+                                                    <td> <a href="">{{poliza.clientes.apellido}} {{poliza.clientes.nombre}} </a></td>
+                                                    <td> {{poliza.tipo_vigencias.vigencia}} </td>
+                                                    <td> {{poliza.vigencia_desde}} / {{poliza.vigencia_hasta}} </td>
+                                                    <td> {{poliza.estado_polizas.nombre}} </td>
+                                                    <td v-if="poliza.fecha_recepcion !== null && poliza.fecha_entrega_original === null && poliza.fecha_entrega_correo === null && poliza.fecha_entrega_email === null">Recibida</td>
+                                                    <td v-else-if="poliza.fecha_recepcion !== null && poliza.fecha_entrega_original !== null && poliza.fecha_entrega_correo === null && poliza.fecha_entrega_email === null">Entregada</td>
+                                                    <td v-else-if="poliza.fecha_recepcion !== null && poliza.fecha_entrega_original === null && poliza.fecha_entrega_correo !== null && poliza.fecha_entrega_email === null">Correo</td>
+                                                    <td v-else-if="poliza.fecha_recepcion !== null && poliza.fecha_entrega_original === null && poliza.fecha_entrega_correo === null && poliza.fecha_entrega_email !== null">Email</td>
+                                                    <td v-else-if="poliza.fecha_recepcion !== null && poliza.fecha_entrega_original !== null && poliza.fecha_entrega_correo !== null && poliza.fecha_entrega_email === null">Entregada / Correo</td>
+                                                    <td v-else-if="poliza.fecha_recepcion !== null && poliza.fecha_entrega_original !== null && poliza.fecha_entrega_correo === null && poliza.fecha_entrega_email !== null">Entregada / Email</td>
+                                                    <td v-else-if="poliza.fecha_recepcion !== null && poliza.fecha_entrega_original === null && poliza.fecha_entrega_correo !== null && poliza.fecha_entrega_email !== null">Correo / Email</td>
+                                                    <td v-else-if="poliza.fecha_recepcion !== null && poliza.fecha_entrega_original !== null && poliza.fecha_entrega_correo !== null && poliza.fecha_entrega_email !== null">Entregada / Correo / Email</td>
+                                                    <td v-else>No recibida</td>
+                                                    <td> {{poliza.medio_pago}} </td>
+                                                    <td>
+                                                        <router-link :to="`/polizas/automotor/${poliza.numero_solicitud}/edit`" class="fa fa-edit"></router-link>
+                                                        <a href="" class="fa fa-car"></a>
+                                                        <a href="" class="fa fa-folder-plus"></a>
+                                                        <a href="" class="fa fa-car-crash"></a>
+                                                        <a href="" class="fa fa-trash"></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+    </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      polizas: {},
+      companias: {},
+      codigo_productor: {},
+      productor: {}
+    };
+  },
+  created() {
+    let self = this;
+    axios.get("http://127.0.0.1:8000/api/polizas").then(response => {
+      // console.log(response.data)
+      self.polizas = response.data.data;
+    });
+  }
+};
+</script>

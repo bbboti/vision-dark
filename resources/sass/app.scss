@@ -7,6 +7,13 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import "../dark-pack/vendor/bootstrap/css/bootstrap.min.css";
+@import "../dark-pack/vendor/font-awesome/css/font-awesome.min.css";
+@import "../dark-pack/css/font.css";
+@import "../dark-pack/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css";
+@import "../dark-pack/vendor/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css";
+@import "../dark-pack/css/style.default.premium.css";
+@import "../dark-pack/css/style.violet.premium.css";
 
 .navbar-laravel {
   background-color: #fff;

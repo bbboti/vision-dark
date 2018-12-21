@@ -1,33 +1,98 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
+require('../dark-pack/vendor/jquery/jquery');
+require('../dark-pack/vendor/bootstrap/js/bootstrap.min');
+require('../dark-pack/vendor/jquery.cookie/jquery.cookie');
+// require('../dark-pack/vendor/chart.js/Chart.min.js');
+require('../dark-pack/vendor/jquery-validation/jquery.validate.min.js');
+// require('../dark-pack/js/charts-home.js');
+require('../dark-pack/vendor/messenger-hubspot/build/js/messenger.min');
+require('../dark-pack/vendor/messenger-hubspot/build/js/messenger-theme-flat');
+require('../dark-pack/js/home-premium');
+require('../dark-pack/vendor/datatables.net/js/jquery.dataTables');
+require('../dark-pack/vendor/datatables.net-bs4/js/dataTables.bootstrap4');
+require('../dark-pack/vendor/datatables.net-responsive/js/dataTables.responsive.min');
+require('../dark-pack/vendor/datatables.net-responsive-bs4/js/responsive.bootstrap4.min');
+require('../dark-pack/js/tables-datatable.js');
+require('../dark-pack/js/front');
 
 window.Vue = require('vue');
+import ToggleButton from 'vue-js-toggle-button'
+Vue.use(ToggleButton)
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+import VueRouter from 'vue-router';
+Vue.use(VueRouter)
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+let routes = [{
+        path: '/clientes',
+        component: require('./components/Clientes.vue').default,
+        meta: {
+            title: 'Clientes'
+        }
+    },
+    {
+        path: '/administracion/companias',
+        component: require('./components/administracion/companias/Companias.vue').default,
+        meta: {
+            title: 'Compañias'
+        }
+    },
+    {
+        path: '/administracion/companias/create',
+        component: require('./components/administracion/companias/Create.vue').default,
+        meta: {
+            title: 'Compañias'
+        }
+    },
+    {
+        path: '/administracion/companias/:nombre/edit',
+        component: require('./components/administracion/companias/Edit.vue').default,
+        meta: {
+            title: 'Compañias'
+        }
+    },
+    {
+        path: '/administracion/organizadores',
+        component: require('./components/administracion/Organizadores.vue').default,
+        meta: {
+            title: 'Organizadores'
+        }
+    },
+    {
+        path: '/administracion/productores',
+        component: require('./components/administracion/Productores.vue').default,
+        meta: {
+            title: 'Productores'
+        }
+    },
+    {
+        path: '/polizas/automotor',
+        component: require('./components/polizas/Automotor.vue').default,
+        meta: {
+            title: 'Polizas Automotor'
+        }
+    },
+    {
+        path: '/polizas/create',
+        component: require('./components/polizas/Create.vue').default,
+        meta: {
+            title: 'Polizas Automotor'
+        }
+    },
+    {
+        path: '/polizas/automotor/:numero_solicitud/edit',
+        component: require('./components/polizas/Edit.vue').default,
+        meta: {
+            title: 'Polizas Automotor'
+        }
+    }]
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+    const router = new VueRouter({
+        mode: 'history',
+        routes
+    });
 
-const app = new Vue({
-    el: '#app'
-});
+    const app = new Vue({
+        el: '#app',
+        router
+    });
