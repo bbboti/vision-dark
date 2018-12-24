@@ -4727,6 +4727,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -65216,37 +65217,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-6 pt-sm-4" }, [
-                  _c(
-                    "div",
-                    { staticClass: "pt-6" },
-                    [
-                      _c("p", { staticClass: "d-inline" }, [_vm._v("Flota")]),
-                      _vm._v(" "),
-                      _c("toggle-button", {
-                        staticClass: "v-switch-label v-left",
-                        attrs: {
-                          value: true,
-                          labels: { checked: "Individual", unchecked: "Flota" },
-                          colors: { checked: "#FF0040", unchecked: "#01DF01" },
-                          width: 80
-                        },
-                        model: {
-                          value: _vm.poliza.flota,
-                          callback: function($$v) {
-                            _vm.$set(_vm.poliza, "flota", $$v)
-                          },
-                          expression: "poliza.flota"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm._m(0)
-                ])
-              ])
+              _vm._m(0)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-6" }, [
@@ -65491,12 +65462,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "pt-sm-3" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Guardar Cambios")]
-      )
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6 pt-sm-4" }, [
+        _c("div", { staticClass: "pt-sm-3" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("Guardar Cambios")]
+          )
+        ])
+      ])
     ])
   },
   function() {

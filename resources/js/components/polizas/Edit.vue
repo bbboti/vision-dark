@@ -167,15 +167,16 @@
                                                 </div>
                                                 <div class="row">    
                                                         <div class="col-md-6 pt-sm-4">
-                                                               
+<!--                                                                
                                                         <div class="pt-6">
-                                                                <p class="d-inline">Flota</p>
-                                                                <toggle-button class="v-switch-label v-left" :value="true" 
+                                                                <p class="d-inline">Tipo de Poliza</p>
+                                                                <toggle-button class="v-switch-label v-left" :value="1" 
+                                                                :sync="1"
                                                                 :labels="{checked: 'Individual', unchecked: 'Flota'}" 
-                                                                :colors="{checked: '#FF0040', unchecked: '#01DF01'}" 
-                                                                :width="80"
+                                                                :color="{checked: '#9055A2', unchecked: '#f704e4'}" 
+                                                                :width=80
                                                                 v-model="poliza.flota" ></toggle-button>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="pt-sm-3">
                                                                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>  
                                                         </div> 

@@ -11,9 +11,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>VISION | </title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
-    <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
+    
+    <!-- theme stylesheetPUEDE SER ESTE-->
+    <link rel="stylesheet" href="{{mix('css/app.css')}}">
+     <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/dark-admin-premium/1-4-4/css/style.default.premium.css" id="theme-stylesheet">
+     <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/dark-admin-premium/1-4-4/css/style.violet.premium.css" id="theme-stylesheet">
+     
+     <!-- Favicon-->
+     <link rel="shortcut icon" href="https://d19m59y37dris4.cloudfront.net/dark-admin-premium/1-4-4/img/favicon.ico">
+    
 </head>
 <body>
     <header class="header">   
@@ -32,8 +40,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="container-fluid d-flex align-items-center justify-content-between">
             <div class="navbar-header">
               <!-- Navbar Header--><a href="index.html" class="navbar-brand">
-                <div class="brand-text brand-big visible text-uppercase"><strong class="text-primary">Dark</strong><strong>Admin</strong></div>
-                <div class="brand-text brand-sm"><strong class="text-primary">D</strong><strong>A</strong></div></a>
+                <div class="brand-text brand-big visible text-uppercase"><strong class="text-primary">VIS</strong><strong>ION</strong></div>
+                <div class="brand-text brand-sm"><strong class="text-primary">V</strong><strong>S</strong><strong>N</strong></div></a>
               <!-- Sidebar Toggle Btn-->
               <button class="sidebar-toggle"><i class="fa fa-long-arrow-left"></i></button>
             </div>
@@ -41,19 +49,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="list-inline-item"><a href="#" class="search-open nav-link"><i class="icon-magnifying-glass-browser"></i></a></div>
               <div class="list-inline-item dropdown"><a id="navbarDropdownMenuLink1" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link messages-toggle"><i class="icon-email"></i><span class="badge dashbg-1">5</span></a>
                 <div aria-labelledby="navbarDropdownMenuLink1" class="dropdown-menu messages"><a href="#" class="dropdown-item message d-flex align-items-center">
-                    <div class="profile"><img src="img/avatar-3.jpg" alt="..." class="img-fluid">
+                    <div class="profile"><img src="http://127.0.0.1:8000/img/avatar-3.jpg" alt="..." class="img-fluid">
                       <div class="status online"></div>
                     </div>
                     <div class="content">   <strong class="d-block">Nadia Halsey</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">9:30am</small></div></a><a href="#" class="dropdown-item message d-flex align-items-center">
-                    <div class="profile"><img src="img/avatar-2.jpg" alt="..." class="img-fluid">
+                    <div class="profile"><img src="http://127.0.0.1:8000/img/avatar-2.jpg" alt="..." class="img-fluid">
                       <div class="status away"></div>
                     </div>
                     <div class="content">   <strong class="d-block">Peter Ramsy</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">7:40am</small></div></a><a href="#" class="dropdown-item message d-flex align-items-center">
-                    <div class="profile"><img src="img/avatar-1.jpg" alt="..." class="img-fluid">
+                    <div class="profile"><img src="http://127.0.0.1:8000/img/avatar-1.jpg" alt="..." class="img-fluid">
                       <div class="status busy"></div>
                     </div>
                     <div class="content">   <strong class="d-block">Sam Kaheil</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">6:55am</small></div></a><a href="#" class="dropdown-item message d-flex align-items-center">
-                    <div class="profile"><img src="img/avatar-5.jpg" alt="..." class="img-fluid">
+                    <div class="profile"><img src="http://127.0.0.1:8000/img/avatar-5.jpg" alt="..." class="img-fluid">
                       <div class="status offline"></div>
                     </div>
                     <div class="content">   <strong class="d-block">Sara Wood</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">10:30pm</small></div></a><a href="#" class="dropdown-item text-center message"> <strong>See All Messages <i class="fa fa-angle-right"></i></strong></a></div>
@@ -165,36 +173,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="sidebar-header d-flex align-items-center"><a href="pages-profile.html">
               <div class="avatar"><img src="http://127.0.0.1:8000/img/user.png" alt="..." class="img-fluid rounded-circle"></div></a>
             <div class="title">
-              <h1 class="h5">Mark Stephen</h1>
-              <p>Web Designer</p>
+              <h1 class="h5">Juan Ignacio Sarno</h1>
+              <p>Productor</p>
             </div>
           </div>
           <!-- Sidebar Navidation Menus-->
           <ul class="list-unstyled">
-                  <li class="active"><a href="index.html"> <i class="icon-home"></i>Home </a></li>
-                  <span class="heading">Polizas</span>
-                  <li class="active"><a href="index.html"> <i class="fa fa-car"></i>Automotor</a></li>
+                  <li class="active"><a href="/"> <i class="icon-home"></i>Home</a></li>
+                  <li class="active"><a to="/polizas/automotor"> <i class="fa fa-car"></i>Automotor</a></li>
                   <li><a href="#chartsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-list"></i>Otros Riesgos</a>
                     <ul id="chartsDropdown" class="collapse list-unstyled ">
-                      <li><a href="charts.html">Accidente Personal</a></li>
-                      <li><a href="charts.html">Combinado Familiar</a></li>
-                      <li><a href="charts-gauge-sparkline.html">Otros Riesgos</a></li>
+                      <li><a href=''>Accidente Personal</a></li>
+                      <li><a href=''>Combinado Familiar</a></li>
+                      <li><a href=''>Otros Riesgos</a></li>
                     </ul>
                   </li>
-                  <li class="active"><a href="index.html"> <i class="fas fa-car-crash"></i>Siniestros</a></li>
-                  <li class="active"><a href="index.html"> <i class="fas fa-folder-open"></i>Endosos</a></li>
-                  <li class="active"><a href="index.html"> <i class="fa fa-users"></i>Clientes</a></li>
-                  <li><a href="#componentsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-light-bulb"></i>Administracion</a>
+                  <li class="active"><a> <i class="fas fa-car-crash"></i>Siniestros</a></li>
+                  <li class=""><a> <i class="fas fa-folder-open"></i>Endosos</a></li>
+                  <li class=""><a to="/clientes"> <i class="fa fa-users"></i>Clientes</a></li>
+                  <li><a href="#componentsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-th"></i>Administracion</a>
                     <ul id="componentsDropdown" class="collapse list-unstyled ">
-                      <li><a href="components-cards.html">Compañias</a></li>
-                      <li><a href="components-calendar.html">Organizadores</a></li>
-                      <li><a href="components-gallery.html">Productores</a></li>
-                      <li><a href="components-map.html">Libros Rubricados</a></li>
-                      <li><a href="components-notifications.html">Estadisticas</a></li>
-                      <li><a href="components-notifications.html">Marca / Modelos Autos</a></li>
+                      <li><a to="/administracion/companias">Compañias</a></li>
+                      <li><a to="/administracion/organizadores">Organizadores</a></li>
+                      <li><a to="/administracion/productores">Productores</a></li>
+                      <li><a href="">Libros Rubricados</a></li>
+                      <li><a href="">Estadisticas</a></li>
+                      <li><a href="">Marca / Modelos Autos</a></li>
                     </ul>
                   </li>
-                  <li><a href="#pagesDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-website"></i>Configuracion</a>
+                  <li><a href="#pagesDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-wrench"></i>Configuracion</a>
                     <ul id="pagesDropdown" class="collapse list-unstyled ">
                       <li><a href="pages-contacts.html">Usuarios</a></li>
                     </ul>
@@ -203,24 +210,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </nav>
         <!-- Sidebar Navigation end-->
         <div class="page-content">
-          <div class="page-header">
+          {{-- <div class="page-header">
             <div class="container-fluid">
               <h2 class="h5 no-margin-bottom">Dashboard</h2>
             </div>
-          </div>
-
+          </div> --}}
+          <div id="app">
           {{-- ACA VA EL CONTENIDO --}}
-
-          <footer class="footer">
+            <router-view></router-view>
+          </div>
+          {{-- <footer class="footer">
             <div class="footer__block block no-margin-bottom">
               <div class="container-fluid text-center">
-                <p class="no-margin-bottom">2018 &copy; Your company. </p>
+                <p class="no-margin-bottom">2018 &copy; Vision. </p>
               </div>
             </div>
-          </footer>
+          </footer> --}}
         </div>
       </div>
-<script src="/js/app.js"></script>
+<script src="{{mix('js/app.js')}}"></script>
 </body>
 
 </html>

@@ -15,7 +15,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
     
     <!-- theme stylesheetPUEDE SER ESTE-->
-    <link rel="stylesheet" href="{{mix('css/app.css')}}">
+    {{-- <link rel="stylesheet" href="./css/app.css"> --}}
+    <link rel="stylesheet" href="/css/app.css">
+
+    {{-- <link rel="stylesheet" href="/../../resources/dark-pack/css/style.default.premium.css">
+    <link rel="stylesheet" href="/../../resources/dark-pack/css/style.violet.premium.css"> --}}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
      {{-- <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/dark-admin-premium/1-4-4/css/style.default.premium.css" id="theme-stylesheet">
      <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/dark-admin-premium/1-4-4/css/style.violet.premium.css" id="theme-stylesheet">
       --}}
