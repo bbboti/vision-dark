@@ -1,18 +1,22 @@
 <template>
 <div>
-         <!-- Breadcrumb-->
+        <div class="page-header">
+          <div class="container-fluid">
+            <div class="d-flex    align-items-center justify-content-between " >
+                <h2 class="h5 no-margin-bottom">PRODUCTORES</h2>
+              <button href="" class="btn btn-primary ladda-button" data-toggle="modal" data-target="#modal" @click.prevent="vaciarForm()">Crear</button>
+            </div>
+          </div>
+        </div>
+        <!-- Breadcrumb-->
         <div class="container-fluid">
           
         </div>
         <section class="no-padding-top">
           <div class="container-fluid">
             <div class="block">
-              <div class="title"><strong>Productores</strong></div>
-              <div class="block-body">
-
                 <div class="table-responsive">
-
-                  <table id="datatable1" style="width: 100%;" class="table">
+                  <table id="" style="width: 100%;" class="table table-striped">
                     <thead>
                                         <tr role="row">
                                             <th>Apellido</th>
@@ -34,16 +38,14 @@
                                             <td v-if="productor.activo == 1">SI</td>
                                             <td v-else>NO</td>
                                             <td>
-                                                <a @click.prevent="modoEdicion(productor.id)" class="fa fa-edit"></a>
-                                                <a @click.prevent="borrarProductor(productor.id)" class="fa fa-trash"></a>
+                                                <a href="" @click.prevent="modoEdicion(productor.id)" class="fa fa-edit"></a>
+                                                <a href="" @click.prevent="borrarProductor(productor.id)" class="fa fa-trash"></a>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                 </div>
-              </div>
             </div>
-                 <button href="" class="btn btn-primary ladda-button" data-toggle="modal" data-target="#modal" @click.prevent="vaciarForm()">Crear</button>
           </div>
         </section>
     <!-- modal -->

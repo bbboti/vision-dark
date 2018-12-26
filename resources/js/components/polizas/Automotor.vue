@@ -1,21 +1,23 @@
     <template>
     <div>
-        <div class="page-header no-margin-bottom">
+        <div class="page-header">
           <div class="container-fluid">
-            <h2 class="h5 no-margin-bottom">Polizas</h2>
+              <div class="d-flex    align-items-center justify-content-between " >
+                <h2 class="h5 no-margin-bottom" >POLIZAS - Automotor</h2>
+                <router-link to="/polizas/create" class="btn btn-primary ladda-button" >Crear</router-link>
+            </div>
           </div>
         </div>
             <section class="no-padding-top">
 
                     <div class="container-fluid">
                         <div class="block">
-                        <router-link to="/polizas/create" class="btn btn-primary ladda-button float-right" >Crear</router-link>
-                        <div class="title"><strong>Automotor</strong></div>
+                        <!-- <div class="title"><strong>Automotor</strong></div> -->
                             <div class="table-responsive">
-                            <table id="datatable1" style="width: 100%;" class="table">
+                            <table id="" style="width: 100%;" class="table">
                                         <thead>
-                                                <tr style="font-size:80%;" role="row">
-                                                    <th>Poliza Nro</th>
+                                                <tr role="row">
+                                                    <th>Poliza</th>
                                                     <th>Patente</th>
                                                     <th>Compañia</th>
                                                     <th>Cliente</th>
@@ -23,7 +25,7 @@
                                                     <th>Desde / Hasta</th>
                                                     <th>Estado</th>
                                                     <th>Envio</th>
-                                                    <th>F. Pago</th>
+                                                    <th>F.Pago</th>
                                                     <th>Edicion</th>
                                                 </tr>
                                             </thead>
@@ -32,7 +34,8 @@
                                                     <td> {{poliza.numero}} </td>
                                                     <td> petente </td>
                                                     <td> {{poliza.companias.nombre}} ({{poliza.codigo_productor.codigo_productor}}) </td>
-                                                    <td> <a href="">{{poliza.clientes.apellido}} {{poliza.clientes.nombre}} </a></td>
+                                                    <td v-if="poliza.clientes.razon_social === null"><a href="">{{poliza.clientes.apellido}} {{poliza.clientes.nombre}}</a></td>
+                                                    <td v-else><a href="">{{poliza.clientes.razon_social}}</a></td>
                                                     <td> {{poliza.tipo_vigencias.vigencia}} </td>
                                                     <td> {{poliza.vigencia_desde}} / {{poliza.vigencia_hasta}} </td>
                                                     <td> {{poliza.estado_polizas.nombre}} </td>

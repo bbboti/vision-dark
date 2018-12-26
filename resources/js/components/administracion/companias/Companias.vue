@@ -1,18 +1,22 @@
     <template>
 <div>
-         <!-- Breadcrumb-->
+          <div class="page-header">
+          <div class="container-fluid">
+            <div class="d-flex    align-items-center justify-content-between " >
+                <h2 class="h5 no-margin-bottom">COMPAÑIAS</h2>
+                <router-link to="/administracion/companias/create" class="btn btn-primary ladda-button" >Crear</router-link>
+            </div>
+          </div>
+        </div>
+        <!-- Breadcrumb-->
         <div class="container-fluid">
           
         </div>
         <section class="no-padding-top">
           <div class="container-fluid">
             <div class="block">
-              <div class="title"><strong>Compañias</strong></div>
-              <div class="block-body">
-
                 <div class="table-responsive">
-
-                  <table class="table table-striped table-hover">
+                  <table style="width: 100%;" class="table table-striped">
                                 <thead>
                                         <tr role="row">
                                             <th>Nombre</th>
@@ -39,9 +43,7 @@
                                     </tbody>
                                </table>
                 </div>
-              </div>
             </div>
-                    <router-link to="/administracion/companias/create" class="btn btn-primary ladda-button" >Crear</router-link>
           </div>
         </section>
 

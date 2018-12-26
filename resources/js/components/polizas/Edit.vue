@@ -167,16 +167,8 @@
                                                 </div>
                                                 <div class="row">    
                                                         <div class="col-md-6 pt-sm-4">
-<!--                                                                
-                                                        <div class="pt-6">
-                                                                <p class="d-inline">Tipo de Poliza</p>
-                                                                <toggle-button class="v-switch-label v-left" :value="1" 
-                                                                :sync="1"
-                                                                :labels="{checked: 'Individual', unchecked: 'Flota'}" 
-                                                                :color="{checked: '#9055A2', unchecked: '#f704e4'}" 
-                                                                :width=80
-                                                                v-model="poliza.flota" ></toggle-button>
-                                                        </div> -->
+                                                               
+                                                        
                                                         <div class="pt-sm-3">
                                                                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>  
                                                         </div> 
@@ -240,8 +232,18 @@
                 <div class="container-fluid">               
                 <div class="card">
                         <div class="card-header">
-                                <p class="d-inline align-bottom">RIESGO</p>
-                                <button class="btn btn-primary float-right">Crear</button>
+                        <div class="d-flex  align-items-center justify-content-between">
+                                        <p class="">RIESGO</p>
+                                        <toggle-button class="v-switch-label v-left" :value="true" 
+                                                :sync="false"
+                                                :labels="{checked: 'Individual', unchecked: 'Flota'}" 
+                                                :color="{checked: '#9055A2', unchecked: '#f704e4'}" 
+                                                :width=80
+                                                v-model="poliza.flota"
+                                                 >
+                                        </toggle-button>
+                                        <button class="btn btn-primary float-right">Crear</button>
+                        </div>
                         </div>
                                 <div class="block">
                                         <div class="table-responsive"> 

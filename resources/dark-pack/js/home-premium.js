@@ -7,8 +7,8 @@ $(function () {
             showCloseButton: true
         }
     }
-    Messenger().post({
-        message: 'Hey, how are you?<br>Welcome to the Dark Admin Premium template by Bootstrapious.',
-        type: 'success'
-    });
+    // Messenger().post({
+    //     message: 'Hey, how are you?<br>Welcome to the Dark Admin Premium template by Bootstrapious.',
+    //     type: 'success'
+    // });
 });

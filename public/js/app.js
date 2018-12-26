@@ -2107,6 +2107,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import { helpers } from "vuelidate/lib/validators";
 // const alpha = helpers.regex("alpha", /^[a-zA-Z ]*$/);
 // import { required, numeric, email, minValue } from "vuelidate/lib/validators";
@@ -2343,6 +2353,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -2724,6 +2736,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2819,6 +2833,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -3942,6 +3958,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4367,6 +4386,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -25673,6 +25694,496 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! DataTables 1
 
 	return $.fn.dataTable;
 }));
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds/index.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds/index.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var MILLISECONDS_IN_MINUTE = 60000
+
+/**
+ * Google Chrome as of 67.0.3396.87 introduced timezones with offset that includes seconds.
+ * They usually appear for dates that denote time before the timezones were introduced
+ * (e.g. for 'Europe/Prague' timezone the offset is GMT+00:57:44 before 1 October 1891
+ * and GMT+01:00:00 after that date)
+ *
+ * Date#getTimezoneOffset returns the offset in minutes and would return 57 for the example above,
+ * which would lead to incorrect calculations.
+ *
+ * This function returns the timezone offset in milliseconds that takes seconds in account.
+ */
+module.exports = function getTimezoneOffsetInMilliseconds (dirtyDate) {
+  var date = new Date(dirtyDate.getTime())
+  var baseTimezoneOffset = date.getTimezoneOffset()
+  date.setSeconds(0, 0)
+  var millisecondsPartOfTimezoneOffset = date.getTime() % MILLISECONDS_IN_MINUTE
+
+  return baseTimezoneOffset * MILLISECONDS_IN_MINUTE + millisecondsPartOfTimezoneOffset
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/add_months/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/date-fns/add_months/index.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(/*! ../parse/index.js */ "./node_modules/date-fns/parse/index.js")
+var getDaysInMonth = __webpack_require__(/*! ../get_days_in_month/index.js */ "./node_modules/date-fns/get_days_in_month/index.js")
+
+/**
+ * @category Month Helpers
+ * @summary Add the specified number of months to the given date.
+ *
+ * @description
+ * Add the specified number of months to the given date.
+ *
+ * @param {Date|String|Number} date - the date to be changed
+ * @param {Number} amount - the amount of months to be added
+ * @returns {Date} the new date with the months added
+ *
+ * @example
+ * // Add 5 months to 1 September 2014:
+ * var result = addMonths(new Date(2014, 8, 1), 5)
+ * //=> Sun Feb 01 2015 00:00:00
+ */
+function addMonths (dirtyDate, dirtyAmount) {
+  var date = parse(dirtyDate)
+  var amount = Number(dirtyAmount)
+  var desiredMonth = date.getMonth() + amount
+  var dateWithDesiredMonth = new Date(0)
+  dateWithDesiredMonth.setFullYear(date.getFullYear(), desiredMonth, 1)
+  dateWithDesiredMonth.setHours(0, 0, 0, 0)
+  var daysInMonth = getDaysInMonth(dateWithDesiredMonth)
+  // Set the last day of the new month
+  // if the original date was the last day of the longer month
+  date.setMonth(desiredMonth, Math.min(daysInMonth, date.getDate()))
+  return date
+}
+
+module.exports = addMonths
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/get_days_in_month/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/date-fns/get_days_in_month/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var parse = __webpack_require__(/*! ../parse/index.js */ "./node_modules/date-fns/parse/index.js")
+
+/**
+ * @category Month Helpers
+ * @summary Get the number of days in a month of the given date.
+ *
+ * @description
+ * Get the number of days in a month of the given date.
+ *
+ * @param {Date|String|Number} date - the given date
+ * @returns {Number} the number of days in a month
+ *
+ * @example
+ * // How many days are in February 2000?
+ * var result = getDaysInMonth(new Date(2000, 1))
+ * //=> 29
+ */
+function getDaysInMonth (dirtyDate) {
+  var date = parse(dirtyDate)
+  var year = date.getFullYear()
+  var monthIndex = date.getMonth()
+  var lastDayOfMonth = new Date(0)
+  lastDayOfMonth.setFullYear(year, monthIndex + 1, 0)
+  lastDayOfMonth.setHours(0, 0, 0, 0)
+  return lastDayOfMonth.getDate()
+}
+
+module.exports = getDaysInMonth
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/is_date/index.js":
+/*!************************************************!*\
+  !*** ./node_modules/date-fns/is_date/index.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * @category Common Helpers
+ * @summary Is the given argument an instance of Date?
+ *
+ * @description
+ * Is the given argument an instance of Date?
+ *
+ * @param {*} argument - the argument to check
+ * @returns {Boolean} the given argument is an instance of Date
+ *
+ * @example
+ * // Is 'mayonnaise' a Date?
+ * var result = isDate('mayonnaise')
+ * //=> false
+ */
+function isDate (argument) {
+  return argument instanceof Date
+}
+
+module.exports = isDate
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/parse/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/date-fns/parse/index.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getTimezoneOffsetInMilliseconds = __webpack_require__(/*! ../_lib/getTimezoneOffsetInMilliseconds/index.js */ "./node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds/index.js")
+var isDate = __webpack_require__(/*! ../is_date/index.js */ "./node_modules/date-fns/is_date/index.js")
+
+var MILLISECONDS_IN_HOUR = 3600000
+var MILLISECONDS_IN_MINUTE = 60000
+var DEFAULT_ADDITIONAL_DIGITS = 2
+
+var parseTokenDateTimeDelimeter = /[T ]/
+var parseTokenPlainTime = /:/
+
+// year tokens
+var parseTokenYY = /^(\d{2})$/
+var parseTokensYYY = [
+  /^([+-]\d{2})$/, // 0 additional digits
+  /^([+-]\d{3})$/, // 1 additional digit
+  /^([+-]\d{4})$/ // 2 additional digits
+]
+
+var parseTokenYYYY = /^(\d{4})/
+var parseTokensYYYYY = [
+  /^([+-]\d{4})/, // 0 additional digits
+  /^([+-]\d{5})/, // 1 additional digit
+  /^([+-]\d{6})/ // 2 additional digits
+]
+
+// date tokens
+var parseTokenMM = /^-(\d{2})$/
+var parseTokenDDD = /^-?(\d{3})$/
+var parseTokenMMDD = /^-?(\d{2})-?(\d{2})$/
+var parseTokenWww = /^-?W(\d{2})$/
+var parseTokenWwwD = /^-?W(\d{2})-?(\d{1})$/
+
+// time tokens
+var parseTokenHH = /^(\d{2}([.,]\d*)?)$/
+var parseTokenHHMM = /^(\d{2}):?(\d{2}([.,]\d*)?)$/
+var parseTokenHHMMSS = /^(\d{2}):?(\d{2}):?(\d{2}([.,]\d*)?)$/
+
+// timezone tokens
+var parseTokenTimezone = /([Z+-].*)$/
+var parseTokenTimezoneZ = /^(Z)$/
+var parseTokenTimezoneHH = /^([+-])(\d{2})$/
+var parseTokenTimezoneHHMM = /^([+-])(\d{2}):?(\d{2})$/
+
+/**
+ * @category Common Helpers
+ * @summary Convert the given argument to an instance of Date.
+ *
+ * @description
+ * Convert the given argument to an instance of Date.
+ *
+ * If the argument is an instance of Date, the function returns its clone.
+ *
+ * If the argument is a number, it is treated as a timestamp.
+ *
+ * If an argument is a string, the function tries to parse it.
+ * Function accepts complete ISO 8601 formats as well as partial implementations.
+ * ISO 8601: http://en.wikipedia.org/wiki/ISO_8601
+ *
+ * If all above fails, the function passes the given argument to Date constructor.
+ *
+ * @param {Date|String|Number} argument - the value to convert
+ * @param {Object} [options] - the object with options
+ * @param {0 | 1 | 2} [options.additionalDigits=2] - the additional number of digits in the extended year format
+ * @returns {Date} the parsed date in the local time zone
+ *
+ * @example
+ * // Convert string '2014-02-11T11:30:30' to date:
+ * var result = parse('2014-02-11T11:30:30')
+ * //=> Tue Feb 11 2014 11:30:30
+ *
+ * @example
+ * // Parse string '+02014101',
+ * // if the additional number of digits in the extended year format is 1:
+ * var result = parse('+02014101', {additionalDigits: 1})
+ * //=> Fri Apr 11 2014 00:00:00
+ */
+function parse (argument, dirtyOptions) {
+  if (isDate(argument)) {
+    // Prevent the date to lose the milliseconds when passed to new Date() in IE10
+    return new Date(argument.getTime())
+  } else if (typeof argument !== 'string') {
+    return new Date(argument)
+  }
+
+  var options = dirtyOptions || {}
+  var additionalDigits = options.additionalDigits
+  if (additionalDigits == null) {
+    additionalDigits = DEFAULT_ADDITIONAL_DIGITS
+  } else {
+    additionalDigits = Number(additionalDigits)
+  }
+
+  var dateStrings = splitDateString(argument)
+
+  var parseYearResult = parseYear(dateStrings.date, additionalDigits)
+  var year = parseYearResult.year
+  var restDateString = parseYearResult.restDateString
+
+  var date = parseDate(restDateString, year)
+
+  if (date) {
+    var timestamp = date.getTime()
+    var time = 0
+    var offset
+
+    if (dateStrings.time) {
+      time = parseTime(dateStrings.time)
+    }
+
+    if (dateStrings.timezone) {
+      offset = parseTimezone(dateStrings.timezone) * MILLISECONDS_IN_MINUTE
+    } else {
+      var fullTime = timestamp + time
+      var fullTimeDate = new Date(fullTime)
+
+      offset = getTimezoneOffsetInMilliseconds(fullTimeDate)
+
+      // Adjust time when it's coming from DST
+      var fullTimeDateNextDay = new Date(fullTime)
+      fullTimeDateNextDay.setDate(fullTimeDate.getDate() + 1)
+      var offsetDiff =
+        getTimezoneOffsetInMilliseconds(fullTimeDateNextDay) -
+        getTimezoneOffsetInMilliseconds(fullTimeDate)
+      if (offsetDiff > 0) {
+        offset += offsetDiff
+      }
+    }
+
+    return new Date(timestamp + time + offset)
+  } else {
+    return new Date(argument)
+  }
+}
+
+function splitDateString (dateString) {
+  var dateStrings = {}
+  var array = dateString.split(parseTokenDateTimeDelimeter)
+  var timeString
+
+  if (parseTokenPlainTime.test(array[0])) {
+    dateStrings.date = null
+    timeString = array[0]
+  } else {
+    dateStrings.date = array[0]
+    timeString = array[1]
+  }
+
+  if (timeString) {
+    var token = parseTokenTimezone.exec(timeString)
+    if (token) {
+      dateStrings.time = timeString.replace(token[1], '')
+      dateStrings.timezone = token[1]
+    } else {
+      dateStrings.time = timeString
+    }
+  }
+
+  return dateStrings
+}
+
+function parseYear (dateString, additionalDigits) {
+  var parseTokenYYY = parseTokensYYY[additionalDigits]
+  var parseTokenYYYYY = parseTokensYYYYY[additionalDigits]
+
+  var token
+
+  // YYYY or ±YYYYY
+  token = parseTokenYYYY.exec(dateString) || parseTokenYYYYY.exec(dateString)
+  if (token) {
+    var yearString = token[1]
+    return {
+      year: parseInt(yearString, 10),
+      restDateString: dateString.slice(yearString.length)
+    }
+  }
+
+  // YY or ±YYY
+  token = parseTokenYY.exec(dateString) || parseTokenYYY.exec(dateString)
+  if (token) {
+    var centuryString = token[1]
+    return {
+      year: parseInt(centuryString, 10) * 100,
+      restDateString: dateString.slice(centuryString.length)
+    }
+  }
+
+  // Invalid ISO-formatted year
+  return {
+    year: null
+  }
+}
+
+function parseDate (dateString, year) {
+  // Invalid ISO-formatted year
+  if (year === null) {
+    return null
+  }
+
+  var token
+  var date
+  var month
+  var week
+
+  // YYYY
+  if (dateString.length === 0) {
+    date = new Date(0)
+    date.setUTCFullYear(year)
+    return date
+  }
+
+  // YYYY-MM
+  token = parseTokenMM.exec(dateString)
+  if (token) {
+    date = new Date(0)
+    month = parseInt(token[1], 10) - 1
+    date.setUTCFullYear(year, month)
+    return date
+  }
+
+  // YYYY-DDD or YYYYDDD
+  token = parseTokenDDD.exec(dateString)
+  if (token) {
+    date = new Date(0)
+    var dayOfYear = parseInt(token[1], 10)
+    date.setUTCFullYear(year, 0, dayOfYear)
+    return date
+  }
+
+  // YYYY-MM-DD or YYYYMMDD
+  token = parseTokenMMDD.exec(dateString)
+  if (token) {
+    date = new Date(0)
+    month = parseInt(token[1], 10) - 1
+    var day = parseInt(token[2], 10)
+    date.setUTCFullYear(year, month, day)
+    return date
+  }
+
+  // YYYY-Www or YYYYWww
+  token = parseTokenWww.exec(dateString)
+  if (token) {
+    week = parseInt(token[1], 10) - 1
+    return dayOfISOYear(year, week)
+  }
+
+  // YYYY-Www-D or YYYYWwwD
+  token = parseTokenWwwD.exec(dateString)
+  if (token) {
+    week = parseInt(token[1], 10) - 1
+    var dayOfWeek = parseInt(token[2], 10) - 1
+    return dayOfISOYear(year, week, dayOfWeek)
+  }
+
+  // Invalid ISO-formatted date
+  return null
+}
+
+function parseTime (timeString) {
+  var token
+  var hours
+  var minutes
+
+  // hh
+  token = parseTokenHH.exec(timeString)
+  if (token) {
+    hours = parseFloat(token[1].replace(',', '.'))
+    return (hours % 24) * MILLISECONDS_IN_HOUR
+  }
+
+  // hh:mm or hhmm
+  token = parseTokenHHMM.exec(timeString)
+  if (token) {
+    hours = parseInt(token[1], 10)
+    minutes = parseFloat(token[2].replace(',', '.'))
+    return (hours % 24) * MILLISECONDS_IN_HOUR +
+      minutes * MILLISECONDS_IN_MINUTE
+  }
+
+  // hh:mm:ss or hhmmss
+  token = parseTokenHHMMSS.exec(timeString)
+  if (token) {
+    hours = parseInt(token[1], 10)
+    minutes = parseInt(token[2], 10)
+    var seconds = parseFloat(token[3].replace(',', '.'))
+    return (hours % 24) * MILLISECONDS_IN_HOUR +
+      minutes * MILLISECONDS_IN_MINUTE +
+      seconds * 1000
+  }
+
+  // Invalid ISO-formatted time
+  return null
+}
+
+function parseTimezone (timezoneString) {
+  var token
+  var absoluteOffset
+
+  // Z
+  token = parseTokenTimezoneZ.exec(timezoneString)
+  if (token) {
+    return 0
+  }
+
+  // ±hh
+  token = parseTokenTimezoneHH.exec(timezoneString)
+  if (token) {
+    absoluteOffset = parseInt(token[2], 10) * 60
+    return (token[1] === '+') ? -absoluteOffset : absoluteOffset
+  }
+
+  // ±hh:mm or ±hhmm
+  token = parseTokenTimezoneHHMM.exec(timezoneString)
+  if (token) {
+    absoluteOffset = parseInt(token[2], 10) * 60 + parseInt(token[3], 10)
+    return (token[1] === '+') ? -absoluteOffset : absoluteOffset
+  }
+
+  return 0
+}
+
+function dayOfISOYear (isoYear, week, day) {
+  week = week || 0
+  day = day || 0
+  var date = new Date(0)
+  date.setUTCFullYear(isoYear, 0, 4)
+  var fourthOfJanuaryDay = date.getUTCDay() || 7
+  var diff = week * 7 + day + 1 - fourthOfJanuaryDay
+  date.setUTCDate(date.getUTCDate() + diff)
+  return date
+}
+
+module.exports = parse
 
 
 /***/ }),
@@ -57076,109 +57587,125 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("div", { staticClass: "page-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c(
+          "div",
+          {
+            staticClass: "d-flex    align-items-center justify-content-between "
+          },
+          [
+            _c("h2", { staticClass: "h5 no-margin-bottom" }, [
+              _vm._v("CLIENTES")
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary ladda-button float-right",
+                attrs: {
+                  href: "",
+                  "data-toggle": "modal",
+                  "data-target": "#modal"
+                },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.vaciarForm()
+                  }
+                }
+              },
+              [_vm._v("Crear")]
+            )
+          ]
+        )
+      ])
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "container-fluid" }),
     _vm._v(" "),
     _c("section", { staticClass: "no-padding-top" }, [
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "block" }, [
-          _c("div", { staticClass: "block-body" }, [
-            _c("div", { staticClass: "table-responsive" }, [
-              _c(
-                "table",
-                {
-                  staticClass: "table",
-                  staticStyle: { width: "100%" },
-                  attrs: { id: "datatable1" }
-                },
-                [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.clientes, function(cliente) {
-                      return _c(
-                        "tr",
-                        {
-                          key: cliente.id,
-                          staticClass: "odd",
-                          attrs: { role: "row" }
-                        },
-                        [
-                          cliente.razon_social === null
-                            ? _c("td", [
-                                _vm._v(
-                                  _vm._s(cliente.apellido) +
-                                    " " +
-                                    _vm._s(cliente.nombre)
-                                )
-                              ])
-                            : _c("td", [_vm._v(_vm._s(cliente.razon_social))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(cliente.nro_dni) + " ")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(cliente.celular) + " ")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(cliente.email) + " ")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              _vm._s(cliente.productores.apellido) +
-                                " " +
-                                _vm._s(cliente.productores.nombre) +
-                                " "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("a", {
-                              staticClass: "fa fa-edit",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  _vm.modoEdicion(cliente.id)
-                                }
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              {
+                staticClass: "table",
+                staticStyle: { width: "100%" },
+                attrs: { id: "" }
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.clientes, function(cliente) {
+                    return _c(
+                      "tr",
+                      {
+                        key: cliente.id,
+                        staticClass: "odd",
+                        attrs: { role: "row" }
+                      },
+                      [
+                        cliente.razon_social === null
+                          ? _c("td", [
+                              _vm._v(
+                                _vm._s(cliente.apellido) +
+                                  " " +
+                                  _vm._s(cliente.nombre)
+                              )
+                            ])
+                          : _c("td", [_vm._v(_vm._s(cliente.razon_social))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(cliente.nro_dni) + " ")]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(cliente.celular) + " ")]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(cliente.email) + " ")]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(cliente.productores.apellido) +
+                              " " +
+                              _vm._s(cliente.productores.nombre) +
+                              " "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("a", {
+                            staticClass: "fa fa-edit",
+                            attrs: { href: "" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.modoEdicion(cliente.id)
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "fa fa-trash",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  _vm.borrarCliente(cliente.id)
-                                }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("a", {
+                            staticClass: "fa fa-trash",
+                            attrs: { href: "" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.borrarCliente(cliente.id)
                               }
-                            })
-                          ])
-                        ]
-                      )
-                    }),
-                    0
-                  )
-                ]
-              )
-            ])
+                            }
+                          })
+                        ])
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ]
+            )
           ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary ladda-button",
-            attrs: {
-              href: "",
-              "data-toggle": "modal",
-              "data-target": "#modal"
-            },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                _vm.vaciarForm()
-              }
-            }
-          },
-          [_vm._v("Crear")]
-        )
+        ])
       ])
     ]),
     _vm._v(" "),
@@ -57302,9 +57829,65 @@ var render = function() {
                           ])
                         : _vm._e(),
                       _vm._v(" "),
-                      _vm._m(2),
+                      _c("div", { staticClass: "form-group-material" }, [
+                        _c("label", [_vm._v("Nombre")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.cliente.nombre,
+                              expression: "cliente.nombre"
+                            }
+                          ],
+                          staticClass: "form-control form-control-sm",
+                          attrs: { type: "text", id: "nombre", name: "nombre" },
+                          domProps: { value: _vm.cliente.nombre },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.cliente,
+                                "nombre",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
                       _vm._v(" "),
-                      _vm._m(3),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Apellido")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.cliente.apellido,
+                              expression: "cliente.apellido"
+                            }
+                          ],
+                          staticClass: "form-control form-control-sm",
+                          attrs: { type: "text", id: "nombre", nome: "nombre" },
+                          domProps: { value: _vm.cliente.apellido },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.cliente,
+                                "apellido",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
                       _vm._v(" "),
                       _vm.cliente.tipo_persona !== "Persona Juridica"
                         ? _c("div", { staticClass: "form-group" }, [
@@ -57465,7 +58048,7 @@ var render = function() {
                             _c("label", [_vm._v("Fecha de Nacimiento")]),
                             _vm._v(" "),
                             _c("div", { staticClass: "input-group" }, [
-                              _vm._m(4),
+                              _vm._m(2),
                               _vm._v(" "),
                               _c("input", {
                                 directives: [
@@ -57620,7 +58203,7 @@ var render = function() {
                       _c("label", [_vm._v("Email")]),
                       _vm._v(" "),
                       _c("div", { staticClass: "input-group mb-3" }, [
-                        _vm._m(5),
+                        _vm._m(3),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -57656,7 +58239,7 @@ var render = function() {
                       _c("label", [_vm._v("Email Alternativo")]),
                       _vm._v(" "),
                       _c("div", { staticClass: "input-group mb-3" }, [
-                        _vm._m(6),
+                        _vm._m(4),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -57893,11 +58476,12 @@ var render = function() {
                                 expression: "cliente.localidad_id"
                               }
                             ],
+                            staticClass: "form-control form-control-sm mb-1",
                             attrs: {
                               name: "localidad_id",
                               "custom-label": _vm.nombreYCodigo,
                               options: _vm.localidades,
-                              placeholder: "Buscar Localidad"
+                              placeholder: ""
                             },
                             on: {
                               change: function($event) {
@@ -58025,7 +58609,7 @@ var render = function() {
                         _c("label", [_vm._v("Celular")]),
                         _vm._v(" "),
                         _c("div", { staticClass: "input-group" }, [
-                          _vm._m(7),
+                          _vm._m(5),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -58059,7 +58643,7 @@ var render = function() {
                         _c("label", [_vm._v("Telefono 1")]),
                         _vm._v(" "),
                         _c("div", { staticClass: "input-group" }, [
-                          _vm._m(8),
+                          _vm._m(6),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -58093,7 +58677,7 @@ var render = function() {
                         _c("label", [_vm._v("Telefono 2")]),
                         _vm._v(" "),
                         _c("div", { staticClass: "input-group" }, [
-                          _vm._m(9),
+                          _vm._m(7),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -58182,8 +58766,7 @@ var render = function() {
                                   expression: "cliente.productor_id"
                                 }
                               ],
-                              staticClass:
-                                "form-control form-control-sm mb-1 selectbuscador",
+                              staticClass: "form-control form-control-sm mb-1",
                               attrs: { name: "productor_id" },
                               on: {
                                 change: function($event) {
@@ -58269,9 +58852,7 @@ var render = function() {
                             }
                           })
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(10)
+                      ])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-6" }, [
@@ -58279,7 +58860,7 @@ var render = function() {
                         _c("label", [_vm._v("Vencimiento")]),
                         _vm._v(" "),
                         _c("div", { staticClass: "input-group" }, [
-                          _vm._m(11),
+                          _vm._m(8),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -58313,15 +58894,15 @@ var render = function() {
                             }
                           })
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _vm._v(
-                          "\n                    aca van las fotos del registro\n                "
-                        )
                       ])
                     ])
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(9),
+                  _vm._v(" "),
+                  _vm._m(10),
+                  _vm._v(" "),
+                  _vm._m(11)
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer" }, [
@@ -58373,7 +58954,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("tr", [
+      _c("tr", { attrs: { role: "row" } }, [
         _c("th", [_vm._v("Apellido / Nombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("DNI")]),
@@ -58411,32 +58992,6 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group-material" }, [
-      _c("label", [_vm._v("Nombre")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control form-control-sm",
-        attrs: { type: "text", id: "nombre", name: "nombre" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Apellido")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control form-control-sm ",
-        attrs: { type: "text" }
-      })
     ])
   },
   function() {
@@ -58503,6 +59058,45 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "fa fa-calendar" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "form",
+        { staticClass: "dropzone", attrs: { action: "/file-upload" } },
+        [
+          _c("div", { staticClass: "fallback" }, [
+            _c("input", { attrs: { name: "file", type: "file", multiple: "" } })
+          ])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "form",
+      {
+        staticClass: "dropzone",
+        attrs: { action: "/file-upload", id: "my-awesome-dropzone" }
+      },
+      [_c("input", { attrs: { type: "file", name: "file" } })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
       _c("label", { attrs: { for: "exampleInputFile" } }, [_vm._v("Imagen")]),
       _vm._v(" "),
@@ -58534,16 +59128,6 @@ var staticRenderFns = [
         ])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("span", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "fa fa-calendar" })
-      ])
-    ])
   }
 ]
 render._withStripped = true
@@ -58568,108 +59152,122 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("div", { staticClass: "page-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c(
+          "div",
+          {
+            staticClass: "d-flex    align-items-center justify-content-between "
+          },
+          [
+            _c("h2", { staticClass: "h5 no-margin-bottom" }, [
+              _vm._v("ORGANIZADORES")
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary ladda-button",
+                attrs: {
+                  href: "",
+                  "data-toggle": "modal",
+                  "data-target": "#modal"
+                },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.vaciarForm()
+                  }
+                }
+              },
+              [_vm._v("Crear")]
+            )
+          ]
+        )
+      ])
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "container-fluid" }),
     _vm._v(" "),
     _c("section", { staticClass: "no-padding-top" }, [
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "block" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "block-body" }, [
-            _c("div", { staticClass: "table-responsive" }, [
-              _c(
-                "table",
-                {
-                  staticClass: "table",
-                  staticStyle: { width: "100%" },
-                  attrs: { id: "datatable1" }
-                },
-                [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.organizadores, function(organizador) {
-                      return _c(
-                        "tr",
-                        {
-                          key: organizador.id,
-                          staticClass: "odd",
-                          attrs: { role: "row" }
-                        },
-                        [
-                          _c("td", [_vm._v(_vm._s(organizador.apellido))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(" " + _vm._s(organizador.nombre) + " ")
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(" " + _vm._s(organizador.cuit) + " ")
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(" " + _vm._s(organizador.email) + " ")
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(" " + _vm._s(organizador.telefono_2) + " ")
-                          ]),
-                          _vm._v(" "),
-                          organizador.activo == 1
-                            ? _c("td", [_vm._v("SI")])
-                            : _c("td", [_vm._v("NO")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("a", {
-                              staticClass: "fa fa-edit",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  _vm.modoEdicion(organizador.id)
-                                }
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              {
+                staticClass: "table table-striped",
+                staticStyle: { width: "100%" },
+                attrs: { id: "" }
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.organizadores, function(organizador) {
+                    return _c(
+                      "tr",
+                      {
+                        key: organizador.id,
+                        staticClass: "odd",
+                        attrs: { role: "row" }
+                      },
+                      [
+                        _c("td", [_vm._v(_vm._s(organizador.apellido))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(" " + _vm._s(organizador.nombre) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(" " + _vm._s(organizador.cuit) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(" " + _vm._s(organizador.email) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(" " + _vm._s(organizador.telefono_2) + " ")
+                        ]),
+                        _vm._v(" "),
+                        organizador.activo == 1
+                          ? _c("td", [_vm._v("SI")])
+                          : _c("td", [_vm._v("NO")]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("a", {
+                            staticClass: "fa fa-edit",
+                            attrs: { href: "" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.modoEdicion(organizador.id)
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "fa fa-trash",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  _vm.borrarOrganizador(organizador.id)
-                                }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("a", {
+                            staticClass: "fa fa-trash",
+                            attrs: { href: "" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.borrarOrganizador(organizador.id)
                               }
-                            })
-                          ])
-                        ]
-                      )
-                    }),
-                    0
-                  )
-                ]
-              )
-            ])
+                            }
+                          })
+                        ])
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ]
+            )
           ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary ladda-button",
-            attrs: {
-              href: "",
-              "data-toggle": "modal",
-              "data-target": "#modal"
-            },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                _vm.vaciarForm()
-              }
-            }
-          },
-          [_vm._v("Crear")]
-        )
+        ])
       ])
     ]),
     _vm._v(" "),
@@ -58704,7 +59302,7 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._m(2),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
                     _c("div", { staticClass: "row" }, [
@@ -58892,7 +59490,7 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "input-group mb-3" }, [
-                            _vm._m(3),
+                            _vm._m(2),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
@@ -58931,7 +59529,7 @@ var render = function() {
                           _c("label", [_vm._v("Telefono")]),
                           _vm._v(" "),
                           _c("div", { staticClass: "input-group" }, [
-                            _vm._m(4),
+                            _vm._m(3),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
@@ -58970,7 +59568,7 @@ var render = function() {
                           _c("label", [_vm._v("Celular")]),
                           _vm._v(" "),
                           _c("div", { staticClass: "input-group" }, [
-                            _vm._m(5),
+                            _vm._m(4),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
@@ -59111,14 +59709,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "title" }, [
-      _c("strong", [_vm._v("Organizadores")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { attrs: { role: "row" } }, [
         _c("th", [_vm._v("Apellido")]),
@@ -59213,108 +59803,118 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("div", { staticClass: "page-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c(
+          "div",
+          {
+            staticClass: "d-flex    align-items-center justify-content-between "
+          },
+          [
+            _c("h2", { staticClass: "h5 no-margin-bottom" }, [
+              _vm._v("PRODUCTORES")
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary ladda-button",
+                attrs: {
+                  href: "",
+                  "data-toggle": "modal",
+                  "data-target": "#modal"
+                },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.vaciarForm()
+                  }
+                }
+              },
+              [_vm._v("Crear")]
+            )
+          ]
+        )
+      ])
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "container-fluid" }),
     _vm._v(" "),
     _c("section", { staticClass: "no-padding-top" }, [
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "block" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "block-body" }, [
-            _c("div", { staticClass: "table-responsive" }, [
-              _c(
-                "table",
-                {
-                  staticClass: "table",
-                  staticStyle: { width: "100%" },
-                  attrs: { id: "datatable1" }
-                },
-                [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.productores, function(productor) {
-                      return _c(
-                        "tr",
-                        {
-                          key: productor.id,
-                          staticClass: "odd",
-                          attrs: { role: "row" }
-                        },
-                        [
-                          _c("td", [_vm._v(_vm._s(productor.apellido))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(" " + _vm._s(productor.nombre) + " ")
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(" " + _vm._s(productor.cuit) + " ")
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(" " + _vm._s(productor.email) + " ")
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(" " + _vm._s(productor.telefono_2) + " ")
-                          ]),
-                          _vm._v(" "),
-                          productor.activo == 1
-                            ? _c("td", [_vm._v("SI")])
-                            : _c("td", [_vm._v("NO")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("a", {
-                              staticClass: "fa fa-edit",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  _vm.modoEdicion(productor.id)
-                                }
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              {
+                staticClass: "table table-striped",
+                staticStyle: { width: "100%" },
+                attrs: { id: "" }
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.productores, function(productor) {
+                    return _c(
+                      "tr",
+                      {
+                        key: productor.id,
+                        staticClass: "odd",
+                        attrs: { role: "row" }
+                      },
+                      [
+                        _c("td", [_vm._v(_vm._s(productor.apellido))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(" " + _vm._s(productor.nombre) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(" " + _vm._s(productor.cuit) + " ")]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(" " + _vm._s(productor.email) + " ")]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(" " + _vm._s(productor.telefono_2) + " ")
+                        ]),
+                        _vm._v(" "),
+                        productor.activo == 1
+                          ? _c("td", [_vm._v("SI")])
+                          : _c("td", [_vm._v("NO")]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("a", {
+                            staticClass: "fa fa-edit",
+                            attrs: { href: "" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.modoEdicion(productor.id)
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("a", {
-                              staticClass: "fa fa-trash",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  _vm.borrarProductor(productor.id)
-                                }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("a", {
+                            staticClass: "fa fa-trash",
+                            attrs: { href: "" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.borrarProductor(productor.id)
                               }
-                            })
-                          ])
-                        ]
-                      )
-                    }),
-                    0
-                  )
-                ]
-              )
-            ])
+                            }
+                          })
+                        ])
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ]
+            )
           ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary ladda-button",
-            attrs: {
-              href: "",
-              "data-toggle": "modal",
-              "data-target": "#modal"
-            },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                _vm.vaciarForm()
-              }
-            }
-          },
-          [_vm._v("Crear")]
-        )
+        ])
       ])
     ]),
     _vm._v(" "),
@@ -59349,7 +59949,7 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._m(2),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
                     _c("div", { staticClass: "row" }, [
@@ -59537,7 +60137,7 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "input-group mb-3" }, [
-                            _vm._m(3),
+                            _vm._m(2),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
@@ -59576,7 +60176,7 @@ var render = function() {
                           _c("label", [_vm._v("Telefono")]),
                           _vm._v(" "),
                           _c("div", { staticClass: "input-group" }, [
-                            _vm._m(4),
+                            _vm._m(3),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
@@ -59615,7 +60215,7 @@ var render = function() {
                           _c("label", [_vm._v("Celular")]),
                           _vm._v(" "),
                           _c("div", { staticClass: "input-group" }, [
-                            _vm._m(5),
+                            _vm._m(4),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
@@ -59756,14 +60356,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "title" }, [
-      _c("strong", [_vm._v("Productores")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { attrs: { role: "row" } }, [
         _c("th", [_vm._v("Apellido")]),
@@ -59858,111 +60450,112 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("div", { staticClass: "page-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c(
+          "div",
+          {
+            staticClass: "d-flex    align-items-center justify-content-between "
+          },
+          [
+            _c("h2", { staticClass: "h5 no-margin-bottom" }, [
+              _vm._v("COMPAÑIAS")
+            ]),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-primary ladda-button",
+                attrs: { to: "/administracion/companias/create" }
+              },
+              [_vm._v("Crear")]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "container-fluid" }),
     _vm._v(" "),
     _c("section", { staticClass: "no-padding-top" }, [
-      _c(
-        "div",
-        { staticClass: "container-fluid" },
-        [
-          _c("div", { staticClass: "block" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "block-body" }, [
-              _c("div", { staticClass: "table-responsive" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "block" }, [
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              {
+                staticClass: "table table-striped",
+                staticStyle: { width: "100%" }
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
                 _c(
-                  "table",
-                  { staticClass: "table table-striped table-hover" },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.companias, function(compania) {
-                        return _c(
-                          "tr",
-                          {
-                            key: compania.id,
-                            staticClass: "odd",
-                            attrs: { role: "row" }
-                          },
+                  "tbody",
+                  _vm._l(_vm.companias, function(compania) {
+                    return _c(
+                      "tr",
+                      {
+                        key: compania.id,
+                        staticClass: "odd",
+                        attrs: { role: "row" }
+                      },
+                      [
+                        _c("td", [_vm._v(" " + _vm._s(compania.nombre) + " ")]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(" " + _vm._s(compania.telefono_1) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(" " + _vm._s(compania.telefono_aux) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " " + _vm._s(compania.telefono_siniestros) + " "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        compania.activo == 1
+                          ? _c("td", [_vm._v("SI")])
+                          : _c("td", [_vm._v("NO")]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
                           [
-                            _c("td", [
-                              _vm._v(" " + _vm._s(compania.nombre) + " ")
-                            ]),
+                            _c("router-link", {
+                              staticClass: "fa fa-edit",
+                              attrs: {
+                                to:
+                                  "/administracion/companias/" +
+                                  compania.nombre +
+                                  "/edit"
+                              }
+                            }),
                             _vm._v(" "),
-                            _c("td", [
-                              _vm._v(" " + _vm._s(compania.telefono_1) + " ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(" " + _vm._s(compania.telefono_aux) + " ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                " " + _vm._s(compania.telefono_siniestros) + " "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            compania.activo == 1
-                              ? _c("td", [_vm._v("SI")])
-                              : _c("td", [_vm._v("NO")]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              [
-                                _c("router-link", {
-                                  staticClass: "fa fa-edit",
-                                  attrs: {
-                                    to:
-                                      "/administracion/companias/" +
-                                      compania.nombre +
-                                      "/edit"
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("a", {
-                                  staticClass: "fa fa-trash",
-                                  attrs: { href: "" }
-                                })
-                              ],
-                              1
-                            )
-                          ]
+                            _c("a", {
+                              staticClass: "fa fa-trash",
+                              attrs: { href: "" }
+                            })
+                          ],
+                          1
                         )
-                      }),
-                      0
+                      ]
                     )
-                  ]
+                  }),
+                  0
                 )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            {
-              staticClass: "btn btn-primary ladda-button",
-              attrs: { to: "/administracion/companias/create" }
-            },
-            [_vm._v("Crear")]
-          )
-        ],
-        1
-      )
+              ]
+            )
+          ])
+        ])
+      ])
     ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "title" }, [
-      _c("strong", [_vm._v("Compañias")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -62778,196 +63371,203 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("section", { staticClass: "no-padding-top" }, [
+    _c("div", { staticClass: "page-header" }, [
       _c("div", { staticClass: "container-fluid" }, [
         _c(
           "div",
-          { staticClass: "block" },
+          {
+            staticClass: "d-flex    align-items-center justify-content-between "
+          },
           [
+            _c("h2", { staticClass: "h5 no-margin-bottom" }, [
+              _vm._v("POLIZAS - Automotor")
+            ]),
+            _vm._v(" "),
             _c(
               "router-link",
               {
-                staticClass: "btn btn-primary ladda-button float-right",
+                staticClass: "btn btn-primary ladda-button",
                 attrs: { to: "/polizas/create" }
               },
               [_vm._v("Crear")]
-            ),
-            _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", { staticClass: "table-responsive" }, [
-              _c(
-                "table",
-                {
-                  staticClass: "table",
-                  staticStyle: { width: "100%" },
-                  attrs: { id: "datatable1" }
-                },
-                [
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.polizas, function(poliza) {
-                      return _c(
-                        "tr",
-                        {
-                          key: poliza.id,
-                          staticClass: "odd",
-                          staticStyle: { "font-size": "80%" },
-                          attrs: { role: "row" }
-                        },
-                        [
-                          _c("td", [_vm._v(" " + _vm._s(poliza.numero) + " ")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(" petente ")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              " " +
-                                _vm._s(poliza.companias.nombre) +
-                                " (" +
-                                _vm._s(
-                                  poliza.codigo_productor.codigo_productor
-                                ) +
-                                ") "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("a", { attrs: { href: "" } }, [
-                              _vm._v(
-                                _vm._s(poliza.clientes.apellido) +
-                                  " " +
-                                  _vm._s(poliza.clientes.nombre) +
-                                  " "
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              " " + _vm._s(poliza.tipo_vigencias.vigencia) + " "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              " " +
-                                _vm._s(poliza.vigencia_desde) +
-                                " / " +
-                                _vm._s(poliza.vigencia_hasta) +
-                                " "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              " " + _vm._s(poliza.estado_polizas.nombre) + " "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          poliza.fecha_recepcion !== null &&
-                          poliza.fecha_entrega_original === null &&
-                          poliza.fecha_entrega_correo === null &&
-                          poliza.fecha_entrega_email === null
-                            ? _c("td", [_vm._v("Recibida")])
-                            : poliza.fecha_recepcion !== null &&
-                              poliza.fecha_entrega_original !== null &&
-                              poliza.fecha_entrega_correo === null &&
-                              poliza.fecha_entrega_email === null
-                              ? _c("td", [_vm._v("Entregada")])
-                              : poliza.fecha_recepcion !== null &&
-                                poliza.fecha_entrega_original === null &&
-                                poliza.fecha_entrega_correo !== null &&
-                                poliza.fecha_entrega_email === null
-                                ? _c("td", [_vm._v("Correo")])
-                                : poliza.fecha_recepcion !== null &&
-                                  poliza.fecha_entrega_original === null &&
-                                  poliza.fecha_entrega_correo === null &&
-                                  poliza.fecha_entrega_email !== null
-                                  ? _c("td", [_vm._v("Email")])
-                                  : poliza.fecha_recepcion !== null &&
-                                    poliza.fecha_entrega_original !== null &&
-                                    poliza.fecha_entrega_correo !== null &&
-                                    poliza.fecha_entrega_email === null
-                                    ? _c("td", [_vm._v("Entregada / Correo")])
-                                    : poliza.fecha_recepcion !== null &&
-                                      poliza.fecha_entrega_original !== null &&
-                                      poliza.fecha_entrega_correo === null &&
-                                      poliza.fecha_entrega_email !== null
-                                      ? _c("td", [_vm._v("Entregada / Email")])
-                                      : poliza.fecha_recepcion !== null &&
-                                        poliza.fecha_entrega_original ===
-                                          null &&
-                                        poliza.fecha_entrega_correo !== null &&
-                                        poliza.fecha_entrega_email !== null
-                                        ? _c("td", [_vm._v("Correo / Email")])
-                                        : poliza.fecha_recepcion !== null &&
-                                          poliza.fecha_entrega_original !==
-                                            null &&
-                                          poliza.fecha_entrega_correo !==
-                                            null &&
-                                          poliza.fecha_entrega_email !== null
-                                          ? _c("td", [
-                                              _vm._v(
-                                                "Entregada / Correo / Email"
-                                              )
-                                            ])
-                                          : _c("td", [_vm._v("No recibida")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(" " + _vm._s(poliza.medio_pago) + " ")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
-                              _c("router-link", {
-                                staticClass: "fa fa-edit",
-                                attrs: {
-                                  to:
-                                    "/polizas/automotor/" +
-                                    poliza.numero_solicitud +
-                                    "/edit"
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("a", {
-                                staticClass: "fa fa-car",
-                                attrs: { href: "" }
-                              }),
-                              _vm._v(" "),
-                              _c("a", {
-                                staticClass: "fa fa-folder-plus",
-                                attrs: { href: "" }
-                              }),
-                              _vm._v(" "),
-                              _c("a", {
-                                staticClass: "fa fa-car-crash",
-                                attrs: { href: "" }
-                              }),
-                              _vm._v(" "),
-                              _c("a", {
-                                staticClass: "fa fa-trash",
-                                attrs: { href: "" }
-                              })
-                            ],
-                            1
-                          )
-                        ]
-                      )
-                    }),
-                    0
-                  )
-                ]
-              )
-            ])
+            )
           ],
           1
         )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("section", { staticClass: "no-padding-top" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "block" }, [
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              {
+                staticClass: "table",
+                staticStyle: { width: "100%" },
+                attrs: { id: "" }
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.polizas, function(poliza) {
+                    return _c(
+                      "tr",
+                      {
+                        key: poliza.id,
+                        staticClass: "odd",
+                        staticStyle: { "font-size": "80%" },
+                        attrs: { role: "row" }
+                      },
+                      [
+                        _c("td", [_vm._v(" " + _vm._s(poliza.numero) + " ")]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(" petente ")]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " " +
+                              _vm._s(poliza.companias.nombre) +
+                              " (" +
+                              _vm._s(poliza.codigo_productor.codigo_productor) +
+                              ") "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        poliza.clientes.razon_social === null
+                          ? _c("td", [
+                              _c("a", { attrs: { href: "" } }, [
+                                _vm._v(
+                                  _vm._s(poliza.clientes.apellido) +
+                                    " " +
+                                    _vm._s(poliza.clientes.nombre)
+                                )
+                              ])
+                            ])
+                          : _c("td", [
+                              _c("a", { attrs: { href: "" } }, [
+                                _vm._v(_vm._s(poliza.clientes.razon_social))
+                              ])
+                            ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " " + _vm._s(poliza.tipo_vigencias.vigencia) + " "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " " +
+                              _vm._s(poliza.vigencia_desde) +
+                              " / " +
+                              _vm._s(poliza.vigencia_hasta) +
+                              " "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " " + _vm._s(poliza.estado_polizas.nombre) + " "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        poliza.fecha_recepcion !== null &&
+                        poliza.fecha_entrega_original === null &&
+                        poliza.fecha_entrega_correo === null &&
+                        poliza.fecha_entrega_email === null
+                          ? _c("td", [_vm._v("Recibida")])
+                          : poliza.fecha_recepcion !== null &&
+                            poliza.fecha_entrega_original !== null &&
+                            poliza.fecha_entrega_correo === null &&
+                            poliza.fecha_entrega_email === null
+                            ? _c("td", [_vm._v("Entregada")])
+                            : poliza.fecha_recepcion !== null &&
+                              poliza.fecha_entrega_original === null &&
+                              poliza.fecha_entrega_correo !== null &&
+                              poliza.fecha_entrega_email === null
+                              ? _c("td", [_vm._v("Correo")])
+                              : poliza.fecha_recepcion !== null &&
+                                poliza.fecha_entrega_original === null &&
+                                poliza.fecha_entrega_correo === null &&
+                                poliza.fecha_entrega_email !== null
+                                ? _c("td", [_vm._v("Email")])
+                                : poliza.fecha_recepcion !== null &&
+                                  poliza.fecha_entrega_original !== null &&
+                                  poliza.fecha_entrega_correo !== null &&
+                                  poliza.fecha_entrega_email === null
+                                  ? _c("td", [_vm._v("Entregada / Correo")])
+                                  : poliza.fecha_recepcion !== null &&
+                                    poliza.fecha_entrega_original !== null &&
+                                    poliza.fecha_entrega_correo === null &&
+                                    poliza.fecha_entrega_email !== null
+                                    ? _c("td", [_vm._v("Entregada / Email")])
+                                    : poliza.fecha_recepcion !== null &&
+                                      poliza.fecha_entrega_original === null &&
+                                      poliza.fecha_entrega_correo !== null &&
+                                      poliza.fecha_entrega_email !== null
+                                      ? _c("td", [_vm._v("Correo / Email")])
+                                      : poliza.fecha_recepcion !== null &&
+                                        poliza.fecha_entrega_original !==
+                                          null &&
+                                        poliza.fecha_entrega_correo !== null &&
+                                        poliza.fecha_entrega_email !== null
+                                        ? _c("td", [
+                                            _vm._v("Entregada / Correo / Email")
+                                          ])
+                                        : _c("td", [_vm._v("No recibida")]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(" " + _vm._s(poliza.medio_pago) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c("router-link", {
+                              staticClass: "fa fa-edit",
+                              attrs: {
+                                to:
+                                  "/polizas/automotor/" +
+                                  poliza.numero_solicitud +
+                                  "/edit"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("a", {
+                              staticClass: "fa fa-car",
+                              attrs: { href: "" }
+                            }),
+                            _vm._v(" "),
+                            _c("a", {
+                              staticClass: "fa fa-folder-plus",
+                              attrs: { href: "" }
+                            }),
+                            _vm._v(" "),
+                            _c("a", {
+                              staticClass: "fa fa-car-crash",
+                              attrs: { href: "" }
+                            }),
+                            _vm._v(" "),
+                            _c("a", {
+                              staticClass: "fa fa-trash",
+                              attrs: { href: "" }
+                            })
+                          ],
+                          1
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ]
+            )
+          ])
+        ])
       ])
     ])
   ])
@@ -62977,50 +63577,28 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-header no-margin-bottom" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("h2", { staticClass: "h5 no-margin-bottom" }, [_vm._v("Polizas")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "title" }, [
-      _c("strong", [_vm._v("Automotor")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
-      _c(
-        "tr",
-        { staticStyle: { "font-size": "80%" }, attrs: { role: "row" } },
-        [
-          _c("th", [_vm._v("Poliza Nro")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Patente")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Compañia")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Cliente")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Vigencia")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Desde / Hasta")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Estado")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Envio")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("F. Pago")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Edicion")])
-        ]
-      )
+      _c("tr", { attrs: { role: "row" } }, [
+        _c("th", [_vm._v("Poliza")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Patente")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Compañia")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cliente")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Vigencia")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Desde / Hasta")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Envio")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("F.Pago")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Edicion")])
+      ])
     ])
   }
 ]
@@ -63086,8 +63664,7 @@ var render = function() {
                               expression: "poliza.cliente_id"
                             }
                           ],
-                          staticClass:
-                            "form-control form-control-sm mb-1 selectbuscador",
+                          staticClass: "form-control form-control-sm mb-1",
                           attrs: { name: "cliente_id", value: "cliente_id" },
                           on: {
                             change: function($event) {
@@ -63114,6 +63691,7 @@ var render = function() {
                             "option",
                             {
                               key: cliente.id,
+                              staticClass: "form-control form-control-sm mb-1",
                               domProps: { value: cliente.id }
                             },
                             [
@@ -65450,7 +66028,46 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm._m(1),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c(
+            "div",
+            {
+              staticClass: "d-flex  align-items-center justify-content-between"
+            },
+            [
+              _c("p", {}, [_vm._v("RIESGO")]),
+              _vm._v(" "),
+              _c("toggle-button", {
+                staticClass: "v-switch-label v-left",
+                attrs: {
+                  value: true,
+                  sync: false,
+                  labels: { checked: "Individual", unchecked: "Flota" },
+                  color: { checked: "#9055A2", unchecked: "#f704e4" },
+                  width: 80
+                },
+                model: {
+                  value: _vm.poliza.flota,
+                  callback: function($$v) {
+                    _vm.$set(_vm.poliza, "flota", $$v)
+                  },
+                  expression: "poliza.flota"
+                }
+              }),
+              _vm._v(" "),
+              _c("button", { staticClass: "btn btn-primary float-right" }, [
+                _vm._v("Crear")
+              ])
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _vm._m(1)
+      ])
+    ]),
     _vm._v(" "),
     _vm._m(2),
     _vm._v(" "),
@@ -65478,72 +66095,60 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("p", { staticClass: "d-inline align-bottom" }, [_vm._v("RIESGO")]),
-          _vm._v(" "),
-          _c("button", { staticClass: "btn btn-primary float-right" }, [
-            _vm._v("Crear")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "block" }, [
-          _c("div", { staticClass: "table-responsive" }, [
-            _c(
-              "table",
-              {
-                staticClass: "table table-striped table-sm",
-                attrs: {
-                  id: "example2",
-                  role: "grid",
-                  "aria-describedby": "example2_info"
-                }
-              },
-              [
-                _c("thead", {}, [
-                  _c("tr", { attrs: { role: "row" } }, [
-                    _c("th", [_vm._v("Marca / Modelo / Version")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Patente")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Motor")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Chasis")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Tipo")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Cobertura")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Franquicia")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Edicion")])
-                  ])
-                ]),
+    return _c("div", { staticClass: "block" }, [
+      _c("div", { staticClass: "table-responsive" }, [
+        _c(
+          "table",
+          {
+            staticClass: "table table-striped table-sm",
+            attrs: {
+              id: "example2",
+              role: "grid",
+              "aria-describedby": "example2_info"
+            }
+          },
+          [
+            _c("thead", {}, [
+              _c("tr", { attrs: { role: "row" } }, [
+                _c("th", [_vm._v("Marca / Modelo / Version")]),
                 _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c("td", [_vm._v("dds")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("dddddd")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("dddddd")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("dddddd")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("dddddd")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("dddddd")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("dddddd")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("dddddd")])
-                  ])
-                ])
-              ]
-            )
-          ])
-        ])
+                _c("th", [_vm._v("Patente")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Motor")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Chasis")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Tipo")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Cobertura")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Franquicia")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Edicion")])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tbody", [
+              _c("tr", [
+                _c("td", [_vm._v("dds")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("dddddd")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("dddddd")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("dddddd")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("dddddd")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("dddddd")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("dddddd")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("dddddd")])
+              ])
+            ])
+          ]
+        )
       ])
     ])
   },
@@ -79732,12 +80337,12 @@ $(function () {
     theme: 'flat',
     messageDefaults: {
       showCloseButton: true
-    }
+    } // Messenger().post({
+    //     message: 'Hey, how are you?<br>Welcome to the Dark Admin Premium template by Bootstrapious.',
+    //     type: 'success'
+    // });
+
   };
-  Messenger().post({
-    message: 'Hey, how are you?<br>Welcome to the Dark Admin Premium template by Bootstrapious.',
-    type: 'success'
-  });
 });
 
 /***/ }),
@@ -107077,6 +107682,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-js-toggle-button */ "./node_modules/vue-js-toggle-button/dist/index.js");
 /* harmony import */ var vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var date_fns_add_months__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns/add_months */ "./node_modules/date-fns/add_months/index.js");
+/* harmony import */ var date_fns_add_months__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(date_fns_add_months__WEBPACK_IMPORTED_MODULE_2__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ../dark-pack/vendor/jquery/jquery */ "./resources/dark-pack/vendor/jquery/jquery.js");
@@ -107167,6 +107774,8 @@ var routes = [{
     title: 'Polizas Automotor'
   }
 }];
+
+Vue.use(date_fns_add_months__WEBPACK_IMPORTED_MODULE_2___default.a);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: routes

@@ -14,9 +14,9 @@
                                 <div class="form-group">
                                     <label for="cliente" class="control-label">Cliente</label>
                                     <div class="mb-1">
-                                        <select name='cliente_id' class="form-control form-control-sm mb-1 selectbuscador"
+                                        <select  name='cliente_id' class="form-control form-control-sm mb-1"
                                             value="cliente_id" v-model="poliza.cliente_id">
-                                            <option v-for="cliente in clientes" :key="cliente.id" v-bind:value="cliente.id">{{cliente.apellido}}
+                                            <option class="form-control form-control-sm mb-1" v-for="cliente in clientes" :key="cliente.id" v-bind:value="cliente.id">{{cliente.apellido}}
                                                 {{cliente.nombre}} //DNI:{{cliente.nro_dni}}</option>
                                         </select>
                                     </div>

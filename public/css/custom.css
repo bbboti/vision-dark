@@ -1,0 +1,36 @@
+.router-link-exact-active{
+    background: #34373d;
+    color: #bfc1c4;
+}
+.router-link-exact-active i{
+    color: #9055A2;
+}
+
+.page-content {
+    padding: 0px;
+    width: calc(100%);
+}
+
+nav#sidebar {
+    width: 260px;
+}
+
+.table-responsive{
+    overflow-x: hidden;
+}
+
+.block {
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.page-header{
+    padding: 20px 0px;
+}
+
+
+
+/* nav#sidebar li::before {
+    background: #55a25e;
+} */
+
