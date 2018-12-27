@@ -13,7 +13,11 @@ require('../dark-pack/vendor/datatables.net-bs4/js/dataTables.bootstrap4');
 require('../dark-pack/vendor/datatables.net-responsive/js/dataTables.responsive.min');
 require('../dark-pack/vendor/datatables.net-responsive-bs4/js/responsive.bootstrap4.min');
 require('../dark-pack/js/tables-datatable.js');
+// require('../dark-pack/vendor/dropzone/dropzone');
+// require('../dark-pack/js/forms-dropzone');
 require('../dark-pack/js/front');
+require('../js/gsdk-bootstrap-wizard');
+require('../js/jquery.bootstrap.wizard');
 
 window.Vue = require('vue');
 import ToggleButton from 'vue-js-toggle-button'

@@ -9,9 +9,26 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-<!-- Informacion -->
-          <div class="card-body">
-            <div class="row">
+<!--      Wizard container        -->
+            <div class="wizard-container">
+
+                <div class="card wizard-card" data-color="orange" id="wizardProfile">
+                    <form action="" method="">
+						<div class="wizard-navigation">
+							<ul>
+	                            <li><a href="#datos" data-toggle="tab">Datos</a></li>
+	                            <li><a href="#direccion" data-toggle="tab">Direccion</a></li>
+	                            <li><a href="#productor" data-toggle="tab">Productor</a></li>
+	                            <li><a href="#registro" data-toggle="tab">Registro</a></li>
+	                        </ul>
+
+						</div>
+
+        <div class="tab-content">
+             <div class="tab-pane" id="datos">
+                <!-- <h4 class="info-text"> Datos Personales </h4> -->
+
+                              <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Tipo de Persona </label>
@@ -77,8 +94,7 @@
                   
                 </div>
                 </div>
-
-                <div class="col-md-6">
+ <div class="col-md-6">
                     <div class="form-group">
                         <label>Condición Fiscal</label>
                             <select class="form-control form-control-sm select2 mb-1" name='condicion_fiscal' style="width: 100%;" v-model="cliente.condicion_fiscal">
@@ -116,19 +132,40 @@
                             <textarea class="form-control form-control-sm mb-1" rows="3" name='observaciones_1' v-model="cliente.observaciones_1"></textarea>
                     </div>
                 </div>
-              <!-- /.col -->
-            </div>
-            <!-- /.row -->
-          </div>
-      <div class="modal-header"></div>
 
-<!-- /Informacion -->
-<!-- Contacto -->
-    <div class="card-body">
-        <h5>Contacto</h5>
+                                  <!-- <h4 class="info-text"> Let's start with the basic information (with validation)</h4>
+                                  <div class="col-sm-4 col-sm-offset-1">
+                                     <div class="picture-container">
+                                          <div class="picture">
+                                              <img src="assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title=""/>
+                                              <input type="file" id="wizard-picture">
+                                          </div>
+                                          <h6>Choose Picture</h6>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label>First Name <small>(required)</small></label>
+                                        <input name="firstname" type="text" class="form-control" placeholder="Andrew...">
+                                      </div>
+                                      <div class="form-group">
+                                        <label>Last Name <small>(required)</small></label>
+                                        <input name="lastname" type="text" class="form-control" placeholder="Smith...">
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-10 col-sm-offset-1">
+                                      <div class="form-group">
+                                          <label>Email <small>(required)</small></label>
+                                          <input name="email" type="email" class="form-control" placeholder="andrew@creative-tim.com">
+                                      </div>
+                                  </div> -->
+                              </div>
+                            </div>
+    <div class="tab-pane" id="direccion">
+    <!-- <h4 class="info-text"> Direccion </h4> -->
+    <div class="row">
 
-        <div class="row">
-            <div class="col-md-6">
+                        <div class="col-md-6">
                 <label>Direccion</label>
                 <div class="form-group">
                     <div class="input-group mb-12">
@@ -214,16 +251,17 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-<!-- /Contacto -->
-<!-- Productor -->
-<div class="modal-header"></div>
-    <div class="card-body">
-        <h5>Productor</h5>
-        <div class="row">
-            <div class="col-md-6">
+
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="productor">
+                                    <!-- <h4 class="info-text"> Productor </h4> -->
+
+                                <div class="row">
+                                    
+<div class="col-md-6">
                 <div class="form-group">
+                <label>Productor</label>
                     <div>
                         <select name='productor_id' class="form-control form-control-sm mb-1" v-model="cliente.productor_id">
                             <option v-for="productor in productores" :key="productor.id" v-bind:value="productor.id">{{productor.apellido+" "+productor.nombre}}</option>
@@ -232,15 +270,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-<!-- /Productor -->
-<!-- Registro -->
-<div class="modal-header"></div>
-    <div class="card-body">
-        <h5>Registro</h5>
-        <div class="row">
-            <div class="col-md-6">
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="registro">
+    <div class="row">
+                                    
+                                     <div class="col-md-6">
                 <div class="form-group">
                     <label>Numero</label>
                     <div>
@@ -260,7 +295,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
                     <label for="exampleInputFile">Imagen</label>
                     <div class="input-group ">
                       <div class="custom-file">
@@ -271,10 +306,25 @@
                         <span class="input-group-text  " id="">Subir</span>
                       </div>
                     </div>
-        </div>
+        </div> -->
+                            </div>
+                        </div>
+                        <div class="wizard-footer height-wizard ">
+                            <div class="pull-right">
+                                <input type='button' class='btn btn-next btn-fill btn-primary btn-wd btn-sm' name='Siguiente' value='Siguiente' />
+                                <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' name='finish' value='Finish' />
+                            </div>
+                            <div class="pull-left">
+                                <input type='button' class='btn btn-previous btn-fill btn-primary btn-wd btn-sm' name='Atras' value='Atras' />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div> <!-- wizard container -->
 
-    </div>
             <div class="modal-footer">
+
+                
                 <button type="submit" v-show="!modoEditar" class="btn btn-primary">Crear</button>
                 <button type="submit" v-show="modoEditar" class="btn btn-primary">Guardar</button>
             </div>
@@ -283,3 +333,238 @@
         </div>
     </div> 
     </template>
+
+    <script>
+    export default {
+        props:{
+            cliente:{}
+        },
+        data() {
+            return {
+            productores: {},
+            productor: {},
+            localidades: [],
+            cliente: {
+                tipo_persona: "",
+                nombre: "",
+                apellido: "",
+                razon_social: "",
+                tipo_doc: "",
+                nro_dni: "",
+                sexo: "",
+                nacimiento: "",
+                condicion_fiscal: "",
+                cuit: "",
+                registro: "",
+                vencimiento_registro: "",
+                email: "",
+                email_alt: "",
+                direccion: "",
+                direccion_nro: "",
+                direccion_piso: "",
+                direccion_depto: "",
+                localidad_id: "",
+                barrio_cerrado: "",
+                lote: "",
+                celular: "",
+                telefono_1: "",
+                telefono_2: "",
+                img_registro: "",
+                observaciones_1: "",
+                obeservaciones_2: "",
+                productor_id: ""
+            },
+            modoEditar: false
+            };
+  },
+    validations() {
+        if (this.cliente.tipo_persona === 'Persona Fisica'){
+            return {
+                cliente: {
+                    nombre: {
+                        required,
+                        alpha
+                    },
+                    apellido: {
+                        required,
+                        alpha
+                    },
+                    nro_dni: {
+                        required,
+                        numeric
+                    },
+                    nacimiento: {
+                        required
+                    },
+                    email: {
+                        email
+                    },
+                    sexo: {
+                        required
+                    },
+                    nacimiento: {
+                        required
+                    },
+                    email: {
+                        email
+                    },
+                    email_alt: {
+                        email
+                    },
+                    direccion: {
+                        required
+                    },
+                    direccion_nro: {
+                        required
+                    },
+                    localidad_id:{
+                            required
+                    },
+                    productor_id: {
+                        required
+                    }
+                }
+            } 
+                } else {
+                return {
+                    cliente: {
+                        nombre: {
+                            alpha
+                        },
+                        apellido: {
+                            alpha
+                        },
+                        nro_dni: {
+                            numeric
+                        },
+                        nacimiento: {
+                        },
+                        email: {
+                            email
+                        },
+                        cuit: {
+                            required
+                        },
+                        sexo: {
+                        },
+                        nacimiento: {
+                        },
+                        email: {
+                            email
+                        },
+                        email_alt: {
+                            email
+                        },
+                        direccion: {
+                            required
+                        },
+                        direccion_nro: {
+                            required
+                        },
+                        localidad_id:{
+                            required
+                        },
+                        productor_id: {
+                            required
+                        },
+                        razon_social: {
+                            required
+                        }
+                        }
+                }
+            }
+  },
+  methods: {
+    crearCliente() {
+      let self = this;
+      this.$Progress.start();
+      
+        axios
+          .post("http://127.0.0.1:8000/api/clientes", self.cliente)
+          .then(() => {
+            $("#modal").modal("hide");
+            this.$Progress.finish();
+            this.cliente = {};
+            this.cargarClientes();
+            toast({
+              type: "success",
+              title: "Cliente creado!"
+            });
+          })
+          .catch(error => {
+            console.log(error.response.data);
+            this.errors = error.response.data;
+          });
+      
+    },
+    cambiarACondicionJuridica() {
+      this.tipo_persona = 2;
+    },
+    // vaciarForm() {
+    //   this.cliente = {
+    //     tipo_persona: "Persona Fisica",
+    //     condicion_fiscal: "CONSUMIDOR FINAL",
+    //     tipo_doc: "DNI"
+    //   };
+    //   this.errors = [];
+    //   this.modoEditar = false;
+    // },
+    updateCliente(id) {
+      let self = this;
+      axios
+        .put("http://127.0.0.1:8000/api/clientes/" + id, this.cliente)
+        .then(() => {
+          $("#modal").modal("hide");
+          this.cargarClientes();
+          console.log("listo!");
+        })
+        .catch(e => console.log(e));
+    },
+    modoEdicion(id) {
+      (this.modoEditar = true), $("#modal").modal("show");
+      let self = this;
+      axios
+        .get("http://127.0.0.1:8000/api/clientes/" + id)
+        .then(function(response) {
+          self.cliente = response.data.data;
+        })
+        .catch(e => console.log(e));
+    },
+    // borrarCliente(id) {
+    //   axios.delete("http://127.0.0.1:8000/api/clientes/" + id).then(() => {
+    //     this.cargarClientes();
+    //     console.log("borado!");
+    //   });
+    // },
+    // cargarClientes() {
+    //   let self = this;
+    //   axios.get("http://127.0.0.1:8000/api/clientes").then(function(response) {
+    //     self.clientes = response.data.data;
+    //   });
+    // },
+    cargarProductores() {
+      let self = this;
+      axios
+        .get("http://127.0.0.1:8000/api/administracion/productores")
+        .then(function(response) {
+          self.productores = response.data.data;
+        });
+    },
+    cargarLocalidades() {
+      let self = this;
+      axios
+        .get("http://127.0.0.1:8000/api/localidades")
+        .then(function(response) {
+          self.localidades = response.data.data;
+        });
+    },
+    nombreYCodigo({ nombre, codigo_postal }) {
+      return `${nombre} — (CP:${codigo_postal})`;
+    }
+  },
+  created() {
+    this.cargarProductores();
+    this.cargarLocalidades();
+  }
+    }
+    </script>

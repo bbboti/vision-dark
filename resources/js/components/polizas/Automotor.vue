@@ -34,8 +34,8 @@
                                                     <td> {{poliza.numero}} </td>
                                                     <td> petente </td>
                                                     <td> {{poliza.companias.nombre}} ({{poliza.codigo_productor.codigo_productor}}) </td>
-                                                    <td v-if="poliza.clientes.razon_social === null"><a href="">{{poliza.clientes.apellido}} {{poliza.clientes.nombre}}</a></td>
-                                                    <td v-else><a href="">{{poliza.clientes.razon_social}}</a></td>
+                                                    <td v-if="poliza.clientes.razon_social === null"><a href="" data-toggle="modal" data-target="#modal" @click.prevent="modoEdicion(poliza.clientes.id)">{{poliza.clientes.apellido}} {{poliza.clientes.nombre}}</a></td>
+                                                    <td v-else><a href="" data-toggle="modal" data-target="#modal" @click.prevent="modoEdicion(cliente.id)">{{poliza.clientes.razon_social}}</a></td>
                                                     <td> {{poliza.tipo_vigencias.vigencia}} </td>
                                                     <td> {{poliza.vigencia_desde}} / {{poliza.vigencia_hasta}} </td>
                                                     <td> {{poliza.estado_polizas.nombre}} </td>
@@ -63,18 +63,37 @@
                     </div>
                 </div>
             </section>
-        
+                <modal-clientes :cliente='cliente'></modal-clientes>
+
     </div>
 </template>
 <script>
+import ModalClientes from '../clientes/ModalClientes'
 export default {
+    components:{
+        ModalClientes
+    },
   data() {
     return {
+        cliente:{},
       polizas: {},
       companias: {},
       codigo_productor: {},
-      productor: {}
+      productor: {},
+        modoEditar: false
     };
+  },
+  methods:{
+      modoEdicion(id) {
+      (this.modoEditar = true), $("#modal").modal("show");
+      let self = this;
+      axios
+        .get("http://127.0.0.1:8000/api/clientes/" + id)
+        .then(function(response) {
+          self.cliente = response.data.data;
+        })
+        .catch(e => console.log(e));
+    },
   },
   created() {
     let self = this;

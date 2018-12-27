@@ -11,6 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>VISION | </title>
+    <link rel="stylesheet"  href="{{ asset('css/gsdk-bootstrap-wizard.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/bootstrap.min.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/font-awesome.min.css') }}" >
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
@@ -18,6 +19,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet"  href="{{ asset('css/style.default.premium.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/style.violet.premium.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/custom.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/demo.css') }}" >
      <!-- Favicon-->
      <link rel="shortcut icon" href="https://d19m59y37dris4.cloudfront.net/dark-admin-premium/1-4-4/img/favicon.ico">
     
@@ -131,7 +133,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <li class=""><a> <i class="fas fa-folder-open"></i>Endosos</a></li>
                   <li class=""><router-link to="/clientes"> <i class="fa fa-users"></i>Clientes</router-link></li>
                   <li><a href="#componentsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-th"></i>Administracion</a>
-                    <ul id="componentsDropdown" class="collapse list-unstyled ">
+                    <ul id="componentsDropdown" class="collapse list-unstyled borde-violeta">
                       <li><router-link to="/administracion/companias">Compañias</router-link></li>
                       <li><router-link to="/administracion/organizadores">Organizadores</router-link></li>
                       <li><router-link to="/administracion/productores">Productores</router-link></li>
@@ -166,8 +168,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
   </div>
 <script src="{{mix('js/app.js')}}"></script>
-<script src="./path/to/dropzone.js"></script>
-
+{{-- <script src="{{mix('../../js/gsdk-bootstrap-wizard.js')}}"></script> --}}
+{{-- <script src="{{mix('../../js/jquery.bootstrap.wizard.js')}}"></script> --}}
 </body>
 
 </html>

@@ -1,6 +1,7 @@
 .router-link-exact-active{
     background: #34373d;
-    color: #bfc1c4;
+    color: #bfc1c4;;
+    border-left: 2px solid #9055A2
 }
 .router-link-exact-active i{
     color: #9055A2;
@@ -28,9 +29,18 @@ nav#sidebar {
     padding: 20px 0px;
 }
 
+a[aria-expanded="true"]{
+    border-left: 2px solid #9055A2;
+  }
 
+  a[aria-expanded="true"] i{
+    color: #9055A2;
+  }
 
-/* nav#sidebar li::before {
-    background: #55a25e;
-} */
+  .card{
+    margin-bottom: 0px;
 
+  }
+  .wizard-container {
+    padding-top: 0px;
+  }

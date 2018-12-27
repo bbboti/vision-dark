@@ -280,7 +280,7 @@ export default {
         cantidad_cuotas: "12",
         detalle_medio_pago: ""
       },
-      cliente: {},
+    //   cliente: {},
       clientes: {},
       companias: {},
       compania: {},

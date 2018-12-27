@@ -1,5 +1,5 @@
 // Prevent Dropzone from auto discovering this element:
-Dropzone.options.demoUpload = false;
+// Dropzone.options.demoUpload = false;
 // This is useful when you want to create the
 // Dropzone programmatically later
 // I use it here just to avoid auto-init for the demo element, you don't have to use this approach in your app
