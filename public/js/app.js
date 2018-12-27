@@ -62309,8 +62309,8 @@ var render = function() {
                 _c(
                   "div",
                   {
-                    staticClass: "card wizard-card",
-                    attrs: { "data-color": "orange", id: "wizardProfile" }
+                    staticClass: " wizard-card",
+                    attrs: { "data-color": "violet", id: "wizardProfile" }
                   },
                   [
                     _c("form", { attrs: { action: "", method: "" } }, [
@@ -63668,42 +63668,6 @@ var render = function() {
                     ])
                   ]
                 )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: !_vm.modoEditar,
-                        expression: "!modoEditar"
-                      }
-                    ],
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v("Crear")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.modoEditar,
-                        expression: "modoEditar"
-                      }
-                    ],
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v("Guardar")]
-                )
               ])
             ]
           )
@@ -63844,24 +63808,31 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "wizard-footer height-wizard " }, [
-      _c("div", { staticClass: "pull-right" }, [
-        _c("input", {
-          staticClass: "btn btn-next btn-fill btn-primary btn-wd btn-sm",
-          attrs: { type: "button", name: "Siguiente", value: "Siguiente" }
-        }),
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c("div", { staticClass: "wizard-footer height-wizard " }, [
+        _c("div", { staticClass: "pull-right" }, [
+          _c("input", {
+            staticClass: "btn btn-next btn-fill btn-primary btn-wd ",
+            attrs: { type: "button", name: "Siguiente", value: "Siguiente" }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "btn btn-finish btn-fill btn-primary btn-wd",
+            attrs: { type: "button", name: "finish", value: "Guardar" }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "btn btn-finish btn-fill btn-primary btn-wd",
+            attrs: { type: "button", name: "finish", value: "Crear" }
+          })
+        ]),
         _vm._v(" "),
-        _c("input", {
-          staticClass: "btn btn-finish btn-fill btn-warning btn-wd btn-sm",
-          attrs: { type: "button", name: "finish", value: "Finish" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "pull-left" }, [
-        _c("input", {
-          staticClass: "btn btn-previous btn-fill btn-primary btn-wd btn-sm",
-          attrs: { type: "button", name: "Atras", value: "Atras" }
-        })
+        _c("div", { staticClass: "pull-left" }, [
+          _c("input", {
+            staticClass: "btn btn-previous btn-fill btn-primary btn-wd",
+            attrs: { type: "button", name: "Atras", value: "Atras" }
+          })
+        ])
       ])
     ])
   }
@@ -109128,23 +109099,23 @@ transparent = true;
 $(document).ready(function () {
   /*  Activate the tooltips      */
   $('[rel="tooltip"]').tooltip(); // Code for the Validator
-
-  var $validator = $('.wizard-card form').validate({
-    rules: {
-      firstname: {
-        required: true,
-        minlength: 3
-      },
-      lastname: {
-        required: true,
-        minlength: 3
-      },
-      email: {
-        required: true,
-        minlength: 3
-      }
-    }
-  }); // Wizard Initialization
+  // var $validator = $('.wizard-card form').validate({
+  // 	  rules: {
+  // 	    firstname: {
+  // 	      required: true,
+  // 	      minlength: 3
+  // 	    },
+  // 	    lastname: {
+  // 	      required: true,
+  // 	      minlength: 3
+  // 	    },
+  // 	    email: {
+  // 	      required: true,
+  // 	      minlength: 3,
+  // 	    }
+  //     }
+  // });
+  // Wizard Initialization
 
   $('.wizard-card').bootstrapWizard({
     'tabClass': 'nav nav-pills',

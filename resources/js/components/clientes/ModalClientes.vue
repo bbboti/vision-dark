@@ -12,7 +12,7 @@
 <!--      Wizard container        -->
             <div class="wizard-container">
 
-                <div class="card wizard-card" data-color="orange" id="wizardProfile">
+                <div class=" wizard-card" data-color="violet" id="wizardProfile">
                     <form action="" method="">
 						<div class="wizard-navigation">
 							<ul>
@@ -309,25 +309,25 @@
         </div> -->
                             </div>
                         </div>
-                        <div class="wizard-footer height-wizard ">
-                            <div class="pull-right">
-                                <input type='button' class='btn btn-next btn-fill btn-primary btn-wd btn-sm' name='Siguiente' value='Siguiente' />
-                                <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' name='finish' value='Finish' />
-                            </div>
-                            <div class="pull-left">
-                                <input type='button' class='btn btn-previous btn-fill btn-primary btn-wd btn-sm' name='Atras' value='Atras' />
-                            </div>
+                        
+                        <div class="modal-footer">
+                            <div class="wizard-footer height-wizard ">
+                                <div class="pull-right">
+                                    <input type='button' class='btn btn-next btn-fill btn-primary btn-wd ' name='Siguiente' value='Siguiente' />
+                                    <input type='button' class='btn btn-finish btn-fill btn-primary btn-wd' name='finish' value='Guardar' />
+                                    <input type='button' class='btn btn-finish btn-fill btn-primary btn-wd' name='finish' value='Crear' />
+                                </div>
+                                <div class="pull-left">
+                                    <input type='button' class='btn btn-previous btn-fill btn-primary btn-wd' name='Atras' value='Atras' />
+                                </div>
+                                <!-- <button type="submit" v-show="!modoEditar" class="btn btn-primary">Crear</button>
+                                <button type="submit" v-show="modoEditar" class="btn btn-primary">Guardar</button> -->
+                        </div>
                         </div>
                     </form>
                 </div>
             </div> <!-- wizard container -->
 
-            <div class="modal-footer">
-
-                
-                <button type="submit" v-show="!modoEditar" class="btn btn-primary">Crear</button>
-                <button type="submit" v-show="modoEditar" class="btn btn-primary">Guardar</button>
-            </div>
             </form>
             </div>
         </div>

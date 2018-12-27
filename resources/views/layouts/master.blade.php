@@ -11,7 +11,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>VISION | </title>
-    <link rel="stylesheet"  href="{{ asset('css/gsdk-bootstrap-wizard.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/bootstrap.min.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/font-awesome.min.css') }}" >
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
@@ -19,7 +18,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet"  href="{{ asset('css/style.default.premium.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/style.violet.premium.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/custom.css') }}" >
-    <link rel="stylesheet"  href="{{ asset('css/demo.css') }}" >
      <!-- Favicon-->
      <link rel="shortcut icon" href="https://d19m59y37dris4.cloudfront.net/dark-admin-premium/1-4-4/img/favicon.ico">
     
