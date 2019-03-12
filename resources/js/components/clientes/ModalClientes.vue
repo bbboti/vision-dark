@@ -12,7 +12,7 @@
 <!--      Wizard container        -->
             <div class="wizard-container">
 
-                <div class=" wizard-card" data-color="violet" id="wizardProfile">
+                <div class="form wizard-card" data-color="violet" id="wizardProfile">
                     <form action="" method="">
 						<div class="wizard-navigation">
 							<ul>
@@ -255,7 +255,6 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="productor">
-                                    <!-- <h4 class="info-text"> Productor </h4> -->
 
                                 <div class="row">
                                     
@@ -344,36 +343,36 @@
             productores: {},
             productor: {},
             localidades: [],
-            cliente: {
-                tipo_persona: "",
-                nombre: "",
-                apellido: "",
-                razon_social: "",
-                tipo_doc: "",
-                nro_dni: "",
-                sexo: "",
-                nacimiento: "",
-                condicion_fiscal: "",
-                cuit: "",
-                registro: "",
-                vencimiento_registro: "",
-                email: "",
-                email_alt: "",
-                direccion: "",
-                direccion_nro: "",
-                direccion_piso: "",
-                direccion_depto: "",
-                localidad_id: "",
-                barrio_cerrado: "",
-                lote: "",
-                celular: "",
-                telefono_1: "",
-                telefono_2: "",
-                img_registro: "",
-                observaciones_1: "",
-                obeservaciones_2: "",
-                productor_id: ""
-            },
+            // cliente: {
+            //     tipo_persona: "",
+            //     nombre: "",
+            //     apellido: "",
+            //     razon_social: "",
+            //     tipo_doc: "",
+            //     nro_dni: "",
+            //     sexo: "",
+            //     nacimiento: "",
+            //     condicion_fiscal: "",
+            //     cuit: "",
+            //     registro: "",
+            //     vencimiento_registro: "",
+            //     email: "",
+            //     email_alt: "",
+            //     direccion: "",
+            //     direccion_nro: "",
+            //     direccion_piso: "",
+            //     direccion_depto: "",
+            //     localidad_id: "",
+            //     barrio_cerrado: "",
+            //     lote: "",
+            //     celular: "",
+            //     telefono_1: "",
+            //     telefono_2: "",
+            //     img_registro: "",
+            //     observaciones_1: "",
+            //     obeservaciones_2: "",
+            //     productor_id: ""
+            // },
             modoEditar: false
             };
   },

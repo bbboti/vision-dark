@@ -3938,7 +3938,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     cliente: {}
@@ -3948,36 +3947,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       productores: {},
       productor: {},
       localidades: [],
-      cliente: {
-        tipo_persona: "",
-        nombre: "",
-        apellido: "",
-        razon_social: "",
-        tipo_doc: "",
-        nro_dni: "",
-        sexo: "",
-        nacimiento: "",
-        condicion_fiscal: "",
-        cuit: "",
-        registro: "",
-        vencimiento_registro: "",
-        email: "",
-        email_alt: "",
-        direccion: "",
-        direccion_nro: "",
-        direccion_piso: "",
-        direccion_depto: "",
-        localidad_id: "",
-        barrio_cerrado: "",
-        lote: "",
-        celular: "",
-        telefono_1: "",
-        telefono_2: "",
-        img_registro: "",
-        observaciones_1: "",
-        obeservaciones_2: "",
-        productor_id: ""
-      },
+      // cliente: {
+      //     tipo_persona: "",
+      //     nombre: "",
+      //     apellido: "",
+      //     razon_social: "",
+      //     tipo_doc: "",
+      //     nro_dni: "",
+      //     sexo: "",
+      //     nacimiento: "",
+      //     condicion_fiscal: "",
+      //     cuit: "",
+      //     registro: "",
+      //     vencimiento_registro: "",
+      //     email: "",
+      //     email_alt: "",
+      //     direccion: "",
+      //     direccion_nro: "",
+      //     direccion_piso: "",
+      //     direccion_depto: "",
+      //     localidad_id: "",
+      //     barrio_cerrado: "",
+      //     lote: "",
+      //     celular: "",
+      //     telefono_1: "",
+      //     telefono_2: "",
+      //     img_registro: "",
+      //     observaciones_1: "",
+      //     obeservaciones_2: "",
+      //     productor_id: ""
+      // },
       modoEditar: false
     };
   },
@@ -58577,7 +58576,7 @@ var render = function() {
                             expression: "!modoEditar"
                           }
                         ],
-                        staticClass: "btn bgcolor-purple",
+                        staticClass: "btn btn-primary",
                         attrs: { type: "submit" }
                       },
                       [_vm._v("Crear")]
@@ -58594,7 +58593,7 @@ var render = function() {
                             expression: "modoEditar"
                           }
                         ],
-                        staticClass: "btn bgcolor-purple",
+                        staticClass: "btn btn-primary",
                         attrs: { type: "submit" }
                       },
                       [_vm._v("Guardar")]
@@ -62309,7 +62308,7 @@ var render = function() {
                 _c(
                   "div",
                   {
-                    staticClass: " wizard-card",
+                    staticClass: "form wizard-card",
                     attrs: { "data-color": "violet", id: "wizardProfile" }
                   },
                   [
@@ -109593,8 +109592,8 @@ function debounce(func, wait, immediate) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/boti/vision-dark/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/boti/vision-dark/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/air/vision-dark/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/air/vision-dark/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

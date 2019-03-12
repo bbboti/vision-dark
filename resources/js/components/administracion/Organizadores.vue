@@ -131,8 +131,8 @@
                                         </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" v-show="!modoEditar" class="btn bgcolor-purple">Crear</button>
-                <button type="submit" v-show="modoEditar" class="btn bgcolor-purple">Guardar</button>
+                <button type="submit" v-show="!modoEditar" class="btn btn-primary">Crear</button>
+                <button type="submit" v-show="modoEditar" class="btn btn-primary">Guardar</button>
             </div>
             </form>
             </div>
@@ -148,7 +148,6 @@
 export default {
   data() {
     return {
-      organizadores: {},
       organizador: {
         nombre: "",
         apellido: "",
